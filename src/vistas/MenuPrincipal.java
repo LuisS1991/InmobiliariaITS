@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import controlador.Aplicacion;
+import controlador.MenuPrincipalController;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -18,9 +20,6 @@ public class MenuPrincipal extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane DPVistas;
 
-	/**
-	 * Create the panel.
-	 */
 	public MenuPrincipal() {
 		setLayout(null);
 
@@ -32,10 +31,7 @@ public class MenuPrincipal extends JPanel {
 		JButton btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clientes");
-				Clientes cliente = new Clientes();
-				cliente.setBackground(Color.RED);
-				CambiarVista(cliente);
+				MenuPrincipalController.ShowCliente();
 			}
 		});
 
@@ -45,10 +41,7 @@ public class MenuPrincipal extends JPanel {
 		JButton btnNewButton_1 = new JButton("Contratos");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Contactos");
-				Contactos contacto = new Contactos();
-				contacto.setBackground(Color.blue);
-				CambiarVista(contacto);
+				MenuPrincipalController.ShowContratos();
 			}
 		});
 		btnNewButton_1.setBounds(12, 193, 130, 37);
@@ -57,10 +50,7 @@ public class MenuPrincipal extends JPanel {
 		JButton btnInmuebles = new JButton("Inmuebles");
 		btnInmuebles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Inmuebles");
-				Inmuebles inmubebles = new Inmuebles();
-				inmubebles.setBackground(Color.GREEN);
-				CambiarVista(inmubebles);
+				MenuPrincipalController.ShowInmuebles();
 			}
 		});
 		btnInmuebles.setBounds(12, 144, 130, 37);
@@ -69,10 +59,7 @@ public class MenuPrincipal extends JPanel {
 		JButton btnNewButton_1_2 = new JButton("Usuarios");
 		btnNewButton_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Usuarios");
-				Usuarios usuarios = new Usuarios();
-				usuarios.setBackground(Color.CYAN);
-				CambiarVista(usuarios);
+				MenuPrincipalController.ShowUsuarios();
 			}
 		});
 		btnNewButton_1_2.setBounds(12, 242, 130, 37);
@@ -104,7 +91,7 @@ public class MenuPrincipal extends JPanel {
 		separator.setBounds(155, 0, 9, 630);
 		add(separator);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		
+
 		DPVistas = new JDesktopPane();
 		DPVistas.setBackground(new Color(238, 238, 236));
 		DPVistas.setBounds(166, 0, 684, 630);
@@ -112,10 +99,10 @@ public class MenuPrincipal extends JPanel {
 		DPVistas.setLayout(new CardLayout(0, 0));
 
 	}
-	
-	private void CambiarVista(JPanel panel) {
+
+	public void CambiarVista(JPanel panel) {
 		DPVistas.removeAll();
-		panel.setBounds(0, 0, DPVistas.getBounds().width,DPVistas.getBounds().height);
+		panel.setBounds(0, 0, DPVistas.getBounds().width, DPVistas.getBounds().height);
 		DPVistas.add(panel);
-	} 
+	}
 }

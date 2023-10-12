@@ -1,8 +1,9 @@
 package controlador;
 
 
+import javax.swing.JOptionPane;
+
 import vistas.Login;
-import vistas.MenuPrincipal;
 import vistas.VentanaPpl;
 
 public class Aplicacion {
@@ -19,8 +20,11 @@ public class Aplicacion {
 	}
 	
 	public static void InicioSesion() {
-		System.out.println("Iniciando Sesion");
-		ventana.CambiarVistaPanel(new MenuPrincipal());
+	
+		if(UsuariosController.InicioSesion())
+			ventana.CambiarVistaPanel(MenuPrincipalController.ShowMenuPrinciapl());
+		else 
+			JOptionPane.showMessageDialog(null, "Credenciales Invalidas", null,0);
 	}
 
 

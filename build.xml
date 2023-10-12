@@ -11,15 +11,27 @@
     <property name="source" value="17"/>
     <path id="InmobiliariaITS.classpath">
         <pathelement location="bin"/>
+        <pathelement location="Librerias/jasypt-1.9.3.jar"/>
+        <pathelement location="Librerias/mysql-connector-java-5.1.39-bin.jar"/>
+        <pathelement location="Librerias/debugLib/mariadb-java-client-3.2.0.jar"/>
     </path>
     <path id="run.VentanaPpl.classpath">
         <path refid="InmobiliariaITS.classpath"/>
+        <pathelement location="Librerias/jasypt-1.9.3.jar"/>
+        <pathelement location="Librerias/mysql-connector-java-5.1.39-bin.jar"/>
+        <pathelement location="Librerias/debugLib/mariadb-java-client-3.2.0.jar"/>
     </path>
     <path id="run.Login.classpath">
         <path refid="InmobiliariaITS.classpath"/>
+        <pathelement location="Librerias/jasypt-1.9.3.jar"/>
+        <pathelement location="Librerias/mysql-connector-java-5.1.39-bin.jar"/>
+        <pathelement location="Librerias/debugLib/mariadb-java-client-3.2.0.jar"/>
     </path>
     <path id="run.Main.classpath">
         <path refid="InmobiliariaITS.classpath"/>
+        <pathelement location="Librerias/jasypt-1.9.3.jar"/>
+        <pathelement location="Librerias/mysql-connector-java-5.1.39-bin.jar"/>
+        <pathelement location="Librerias/debugLib/mariadb-java-client-3.2.0.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
