@@ -11,13 +11,19 @@ Proveer de una herramienta que permita registrar ventas y alquileres de propieda
 Se utiliza la arquitectura de 3 capaz a los efectos de poder crecer el software en funcionalidad independiente de las ya realizadas,
 asi como una forma de tener la logica del negocio separada y desacopladad del interfaz de usuario
 
-# Puntos Realizados
+# Puntos Trabajados
 * Interfaz de Login finalizada
 * Arquitecuta 3 Capas 
 * Formato de interactividad del usuario (menu principal y cambios de paneles)
 * Modelos de Datos
 * Se agrega conexion a base datos con sus respectivos conectores
 * Se agrega script sql con datos de prueba Usuario
+* Vista de Usuarios
+* Vista de Clientes
+
+# Funciones Finalizadas
+* Listar Usuarios
+* Agregar Usuarios
 
 ## NOTA IMPORTANTE
 
