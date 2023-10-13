@@ -18,9 +18,6 @@ public class Conexion {
 	private Connection conxion = null;
 
 	public Connection GetConexion() {
-		if(conxion !=null) {
-			return conxion;
-		}else {
 			try {
 				// Registramos el driver de MySQL (MariaDB)
 				/*
@@ -41,8 +38,6 @@ public class Conexion {
 				System.out.println(e.getMessage());
 				return null;
 			}
-		}
-
 	}
 
 	public void CerrarConexion() {

@@ -2,6 +2,8 @@ package controlador;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import conexion.Conexion;
 import modelo.Usuario;
 import repositorio.RepositorioUsuarios;
@@ -19,13 +21,17 @@ public class UsuariosController {
 		return usuarios;
 	}
 	
-	public static void GuardarUsuarios() {
-		
+	public static void GuardarUsuarios(String nombreUsuario,String pass,String repitePass,int rol) {
+		boolean resultado = repoUsuarios.AgregarUsuario(new Usuario(nombreUsuario,pass,rol));
+		if(resultado==true) {
+				JOptionPane.showInternalMessageDialog(null,"Usuario Guardado Correctamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+		}else{
+				JOptionPane.showInternalMessageDialog(null,"Error al gurdar los datos","Alerta",JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	public static ArrayList<Usuario> ListarUsuarios() {
 		repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.testConexionDB();
 		return repoUsuarios.ListarUsuarios();
 	}
 	

@@ -5,7 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 public class VentanaPpl extends JFrame {
 
@@ -13,24 +15,32 @@ public class VentanaPpl extends JFrame {
 	private JPanel contentPane;
 
 	public VentanaPpl() {
-		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPpl.class.getResource("/imagenes/casaIcon.png")));
-		setTitle("Inmobiliaria ITS");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 855, 650);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				  int a=JOptionPane.showConfirmDialog(null,"Are you sure?");
+				  if(a==JOptionPane.YES_OPTION){
+				  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); }
+			}
+		});
+
+		this.setResizable(false);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPpl.class.getResource("/imagenes/casaIcon.png")));
+		this.setTitle("Inmobiliaria ITS");
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 855, 665);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 	}
 
-
 	public void CambiarVistaPanel(JPanel panel) {
-		if(contentPane.getComponentCount() > 0)
+		if (contentPane.getComponentCount() > 0)
 			contentPane.remove(0);
 		panel.setBounds(0, 0, this.getBounds().width, this.getBounds().height);
 		contentPane.add(panel);
 	}
-
 
 }
