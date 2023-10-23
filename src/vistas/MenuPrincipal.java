@@ -1,30 +1,28 @@
 package vistas;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import controlador.Aplicacion;
 import controlador.MenuPrincipalController;
-
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
-import javax.swing.JDesktopPane;
-
-
+import javax.swing.JLayeredPane;
 
 public class MenuPrincipal extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JDesktopPane DPVistas;
+	private JLayeredPane layeredPane;
 
+	
 	public MenuPrincipal() {
 		setLayout(null);
 
 		JPanel PMenuLateral = new JPanel();
-		PMenuLateral.setBounds(0, 0, 154, 630);
+		PMenuLateral.setBounds(0, 0, 154, 640);
 		add(PMenuLateral);
 		PMenuLateral.setLayout(null);
 
@@ -75,34 +73,33 @@ public class MenuPrincipal extends JPanel {
 		JButton btnConfiguraciones = new JButton("Configuraciones");
 		btnConfiguraciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Configuraciones");
 				Configuraciones config = new Configuraciones();
 				config.setBackground(Color.ORANGE);
 				CambiarVista(config);
 			}
 		});
 
-		btnConfiguraciones.setBounds(12, 467, 130, 37);
+		btnConfiguraciones.setBounds(12, 531, 130, 37);
 		PMenuLateral.add(btnConfiguraciones);
-		btnCerrarSesion.setBounds(12, 516, 130, 37);
+		btnCerrarSesion.setBounds(12, 578, 130, 37);
 		PMenuLateral.add(btnCerrarSesion);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(155, 0, 9, 630);
+		separator.setBounds(155, 0, 9, 640);
 		add(separator);
 		separator.setOrientation(SwingConstants.VERTICAL);
-
-		DPVistas = new JDesktopPane();
-		DPVistas.setBackground(new Color(238, 238, 236));
-		DPVistas.setBounds(166, 0, 684, 630);
-		add(DPVistas);
-		DPVistas.setLayout(new CardLayout(0, 0));
+		
+		layeredPane = new JLayeredPane();
+		layeredPane.setBounds(164, 0, 736, 640);
+		add(layeredPane);
 
 	}
 
 	public void CambiarVista(JPanel panel) {
-		DPVistas.removeAll();
-		panel.setBounds(0, 0, DPVistas.getBounds().width, DPVistas.getBounds().height);
-		DPVistas.add(panel);
+		if(layeredPane.getComponentCount() >0){
+			layeredPane.remove(0);
+		}
+		panel.setBounds(0,0, layeredPane.getBounds().width, layeredPane.getBounds().height);
+		layeredPane.add(panel);
 	}
 }

@@ -3,17 +3,17 @@ package vistas;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import controlador.Aplicacion;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JOptionPane;
 
 public class VentanaPpl extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
 	public VentanaPpl() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -23,15 +23,13 @@ public class VentanaPpl extends JFrame {
 				  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); }
 			}
 		});
-
 		this.setResizable(false);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPpl.class.getResource("/imagenes/casaIcon.png")));
-		this.setTitle("Inmobiliaria ITS");
+		this.setTitle(Aplicacion.configApp.get("JAVA_NAME"));
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 855, 665);
+		this.setBounds(100, 100, 910, 655);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 	}

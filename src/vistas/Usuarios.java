@@ -45,7 +45,7 @@ public class Usuarios extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 12, 660, 54);
+		panel.setBounds(12, 12, 867, 54);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -70,17 +70,17 @@ public class Usuarios extends JPanel {
 		});
 		
 		dpPpincipal = new JLayeredPane();
-		dpPpincipal.setBounds(12, 78, 660, 530);
+		dpPpincipal.setBounds(12, 78, 867, 530);
 		add(dpPpincipal);
 	
 		
 		PanelTabla = new JPanel();
-		PanelTabla.setBounds(0, 0, 660, 530);
+		PanelTabla.setBounds(0, 0, 867, 530);
 		dpPpincipal.add(PanelTabla);
 		PanelTabla.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 46, 660, 484);
+		panel_2.setBounds(0, 46, 867, 484);
 		PanelTabla.add(panel_2);
 		panel_2.setLayout(new CardLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane();
@@ -89,7 +89,7 @@ public class Usuarios extends JPanel {
 		scrollPane.setViewportView(tableUsuarios);
 		
 		JLabel lblNewLabel_2 = new JLabel("Listado de Usuarios");
-		lblNewLabel_2.setBounds(12, 12, 636, 33);
+		lblNewLabel_2.setBounds(0, 12, 878, 33);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 24));
 		PanelTabla.add(lblNewLabel_2);
