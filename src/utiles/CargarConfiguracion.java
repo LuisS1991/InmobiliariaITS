@@ -50,8 +50,8 @@ public class CargarConfiguracion {
 			config.put("JAVA_DB", prop.getProperty("JAVA_DB"));
 			config.put("JAVA_USER", prop.getProperty("JAVA_USER"));
 			config.put("JAVA_PASS", prop.getProperty("JAVA_PASS"));
-			config.put("JAVA_URL_MYSQL_8.0", prop.getProperty("JAVA_URL_MARIA_DB"));
-			config.put("JAVA_DRIVER_8.0", prop.getProperty("JAVA_DRIVER_MARIA_DB"));
+			config.put("JAVA_URL_MYSQL_8.0", prop.getProperty("JAVA_URL_MYSQL_8.0"));
+			config.put("JAVA_DRIVER_8.0", prop.getProperty("JAVA_DRIVER_8.0"));
 			config.put("JAVA_CONFIG_TIME_ZONE", prop.getProperty("JAVA_CONFIG_TIME_ZONE"));			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
