@@ -20,13 +20,16 @@ asi como una forma de tener la logica del negocio separada y desacopladad del in
 * Se agrega script sql con datos de prueba Usuario
 * Vista de Usuarios
 * Vista de Clientes
-
+* Vistas Inmubles
+  
 # Funciones Finalizadas
-* Listar Usuarios
 * Agregar Usuarios
-
+* Listar Clientes
+* Agregar Clientes
+* Eliminar CLientes
+* Rol de Usuarios
+* 
 ## NOTA IMPORTANTE
-
 **Se usa conextor de mariadb mientras el proyecto este en desarrollo a los efectos de porder conectarnos a la base de datos utilizada, 
 el  dia de la entrega se debe combiar los conectores a mysql.**
 **Conforme avance las clases se debe chequer que script de base de datos y las consultas funcionen bien.**
