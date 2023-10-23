@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.Aplicacion;
 import controlador.ClienteController;
 import modelo.Cliente;
@@ -31,7 +30,7 @@ public class ListarClientes extends JPanel {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 64, 655, 473);
+		scrollPane.setBounds(10, 64, 801, 473);
 		add(scrollPane);
 		
 		tableUsuarios = new JTable();
@@ -91,7 +90,7 @@ public class ListarClientes extends JPanel {
 		};
 		tableUsuarios.setModel(modeloTabla);
 		
-	}
+	}//fin metodo
 
 	private void editarCliente() {
 		int ci = Integer.parseInt((String) tableUsuarios.getValueAt(tableUsuarios.getSelectedRow(), 1));

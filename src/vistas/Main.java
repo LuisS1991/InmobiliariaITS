@@ -1,6 +1,7 @@
 package vistas;
 
 import java.awt.EventQueue;
+
 import controlador.Aplicacion;
 
 public class Main {

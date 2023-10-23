@@ -28,7 +28,7 @@ public class VentanaPpl extends JFrame {
 		this.setTitle(Aplicacion.configApp.get("JAVA_NAME"));
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 900, 700);
+		this.setBounds(100, 100, 1108, 700);
 		contentPane = new JPanel();
 		this.setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));

@@ -35,7 +35,11 @@ public class MenuPrincipalController {
 		InmuebleController.VerNuevoInmuble();
 	}
 	
-
+	public static void ListarInmo() {
+		menuPrincipal.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		menuPrincipal.CambiarVista(InmuebleController.TodosInmo());
+		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}
 	
 	
 	

@@ -6,12 +6,37 @@ public class Habitable extends Inmueble {
 	private int Cantidad_Cuartos;
 	private int Cantidad_Banos;
 	private int OtrasHabitaciones;
+	private String comodidades;
+	
+	
+		
+	
 
-	public Habitable(int nroPadron, String calle, String dpto, int nroPuerta, int valor, int tamaño) {
-		super(nroPadron, calle, dpto, nroPuerta, valor, tamaño);
-		// TODO Auto-generated constructor stub
+	public Habitable(int nroPadron, String calle, int nroPuerta, String dpto, int valor, int tamaño, Cliente cli,
+			String tipo, int cantidad_Cuartos, int cantidad_Banos, int otrasHabitaciones, String comodidades) {
+		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
+		Tipo = tipo;
+		Cantidad_Cuartos = cantidad_Cuartos;
+		Cantidad_Banos = cantidad_Banos;
+		OtrasHabitaciones = otrasHabitaciones;
+		this.comodidades = comodidades;
 	}
 
+		
+	
+	public Habitable() {
+		
+	}
+
+
+
+	public String getComodidades() {
+		return comodidades;
+	}
+
+	public void setComodidades(String comodidades) {
+		this.comodidades = comodidades;
+	}
 
 	public String getTipo() {
 		return Tipo;

@@ -73,32 +73,6 @@ CREATE TABLE `Contrato` (
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `ContratosClientes`
---
-
-CREATE TABLE `ContratosClientes` (
-  `CI` int(11) DEFAULT NULL,
-  `NroContrato` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ContratosInmubles`
---
-
-CREATE TABLE `ContratosInmubles` (
-  `NroPadron` int(11) DEFAULT NULL,
-  `NroContrato` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Habitable`
---
-
 CREATE TABLE `Habitable` (
   `NroPadron` int(11) NOT NULL,
   `CantCuarto` varchar(255) DEFAULT NULL,
@@ -121,22 +95,6 @@ CREATE TABLE `Inmueble` (
   `tamano` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `InmueblesClientes`
---
-
-CREATE TABLE `InmueblesClientes` (
-  `CI` int(11) NOT NULL,
-  `NroPadron` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Terreno`
---
 
 CREATE TABLE `Terreno` (
   `NroPadron` int(11) NOT NULL,

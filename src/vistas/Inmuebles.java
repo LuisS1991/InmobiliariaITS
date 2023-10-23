@@ -1,35 +1,33 @@
 package vistas;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import modelo.Cliente;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.awt.event.ItemEvent;
-import javax.swing.JList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.DefaultListModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.border.TitledBorder;
-import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import controlador.InmuebleController;
+import modelo.Cliente;
+import javax.swing.JScrollPane;
+
+
 
 @SuppressWarnings("serial")
 public class Inmuebles extends JDialog {
@@ -40,15 +38,23 @@ public class Inmuebles extends JDialog {
 	private JTextField txtNroCalle;
 	private JTextField txtValor;
 	private JTextField txtTamanioInmo;
+	private JTextField txtAddServicio;
+	private JTextArea taServicios;
 	private JPanel panelHabitable;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbTipoInmo;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbClientes;
 	private JPanel panelTerreno;
-	private JTextField txtAddServicio;
-	private JTextArea taServicios;
-	
+	private boolean isTerreno= false;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbDepto;
+	private JSpinner sCantidadBanios;
+	private JSpinner sCantCuartos;
+	private JSpinner sOtrasHabit;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbTipoHabitable;
+	private JTextArea textAreaComodidades;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Inmuebles(VentanaPpl ventana, boolean modal, ArrayList<Cliente> lista) {
@@ -107,7 +113,7 @@ public class Inmuebles extends JDialog {
 			contentPanel.add(lblDepartamento);
 		}
 		{
-			JComboBox cbDepto = new JComboBox();
+			cbDepto = new JComboBox();
 			cbDepto.setModel(new DefaultComboBoxModel(new String[] { "Artigas", "Canelones", "Cerro Largo", "Colonia",
 					"Durazno", "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", "Paysandú", "Río Negro",
 					"Rivera", "Rocha", "Salto", "Soriano", "San José", "Tacuarembó ", "Treinta y Tres" }));
@@ -166,9 +172,11 @@ public class Inmuebles extends JDialog {
 					if (cbTipoInmo.getSelectedItem().equals("Habitable")) {
 						panelHabitable.setVisible(true);
 						panelTerreno.setVisible(false);
+						isTerreno = false;
 					} else {
 						panelHabitable.setVisible(false);
 						panelTerreno.setVisible(true);
+						isTerreno = true;
 					}
 				}
 			});
@@ -182,6 +190,79 @@ public class Inmuebles extends JDialog {
 			panelTerreno.setLayout(null);
 			panelTerreno.setBackground(new Color(240, 240, 240));
 			panelTerreno.setVisible(false);
+			{
+				panelHabitable = new JPanel();
+				panelHabitable.setBackground(new Color(240, 240, 240));
+				panelHabitable.setBounds(10, 301, 602, 173);
+				contentPanel.add(panelHabitable);
+				panelHabitable.setLayout(null);
+				
+				JPanel panel = new JPanel();
+				panel.setBorder(new TitledBorder(null, "Mejoras", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+				panel.setBounds(10, 10, 222, 153);
+				panelHabitable.add(panel);
+				panel.setLayout(null);
+				{
+					JLabel lblCantidadBaos = new JLabel("Cantidad Baños:");
+					lblCantidadBaos.setBounds(10, 23, 102, 33);
+					panel.add(lblCantidadBaos);
+					lblCantidadBaos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				}
+				
+				JLabel lblCantidadCuartos = new JLabel("Cantidad Cuartos:");
+				lblCantidadCuartos.setBounds(10, 66, 103, 33);
+				panel.add(lblCantidadCuartos);
+				lblCantidadCuartos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				
+				sCantidadBanios = new JSpinner();
+				sCantidadBanios.setBounds(131, 24, 35, 33);
+				panel.add(sCantidadBanios);
+				
+				sCantCuartos = new JSpinner();
+				sCantCuartos.setBounds(131, 67, 35, 33);
+				panel.add(sCantCuartos);
+				
+				JLabel lblOtrasHabitaciones = new JLabel("Otras habitaciones:");
+				lblOtrasHabitaciones.setBounds(10, 109, 115, 33);
+				panel.add(lblOtrasHabitaciones);
+				lblOtrasHabitaciones.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				
+				sOtrasHabit = new JSpinner();
+				sOtrasHabit.setBounds(131, 110, 35, 33);
+				panel.add(sOtrasHabit);
+				{
+					JPanel panel_1 = new JPanel();
+					panel_1.setBorder(new TitledBorder(null, "Otras Caracteristicas", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+					panel_1.setBounds(242, 10, 350, 153);
+					panelHabitable.add(panel_1);
+					panel_1.setLayout(null);
+					
+					cbTipoHabitable = new JComboBox();
+					cbTipoHabitable.setModel(new DefaultComboBoxModel(new String[] {"Casa", "Apartamento"}));
+					cbTipoHabitable.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+					cbTipoHabitable.setBounds(122, 20, 170, 33);
+					panel_1.add(cbTipoHabitable);
+					{
+						JLabel lblTipo = new JLabel("Tipo:");
+						lblTipo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+						lblTipo.setBounds(10, 19, 102, 33);
+						panel_1.add(lblTipo);
+					}
+					{
+						JScrollPane scrollPane = new JScrollPane();
+						scrollPane.setBounds(111, 77, 181, 64);
+						panel_1.add(scrollPane);
+						
+						textAreaComodidades = new JTextArea();
+						scrollPane.setViewportView(textAreaComodidades);
+					}
+					
+					JLabel lblComodidades = new JLabel("Comodidades");
+					lblComodidades.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+					lblComodidades.setBounds(10, 94, 102, 33);
+					panel_1.add(lblComodidades);
+				}
+			}
 			panelTerreno.setBounds(10, 338, 602, 136);
 			contentPanel.add(panelTerreno);
 			{
@@ -221,68 +302,13 @@ public class Inmuebles extends JDialog {
 				panelTerreno.add(lblNewLabel_1);
 			}
 			{
-				taServicios = new JTextArea();
-				taServicios.setBounds(492, 12, 100, 114);
-				panelTerreno.add(taServicios);
-			}
-			{
-				panelHabitable = new JPanel();
-				panelHabitable.setBackground(new Color(240, 240, 240));
-				panelHabitable.setBounds(10, 301, 602, 173);
-				contentPanel.add(panelHabitable);
-				panelHabitable.setLayout(null);
-				
-				JPanel panel = new JPanel();
-				panel.setBorder(new TitledBorder(null, "Mejoras", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-				panel.setBounds(10, 10, 222, 153);
-				panelHabitable.add(panel);
-				panel.setLayout(null);
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(492, 12, 100, 114);
+				panelTerreno.add(scrollPane);
 				{
-					JLabel lblCantidadBaos = new JLabel("Cantidad Baños:");
-					lblCantidadBaos.setBounds(10, 23, 102, 33);
-					panel.add(lblCantidadBaos);
-					lblCantidadBaos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-				}
-				
-				JLabel lblCantidadCuartos = new JLabel("Cantidad Cuartos:");
-				lblCantidadCuartos.setBounds(10, 66, 103, 33);
-				panel.add(lblCantidadCuartos);
-				lblCantidadCuartos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-				
-				JSpinner spinner = new JSpinner();
-				spinner.setBounds(131, 24, 35, 33);
-				panel.add(spinner);
-				
-				JSpinner spinner_2 = new JSpinner();
-				spinner_2.setBounds(131, 67, 35, 33);
-				panel.add(spinner_2);
-				
-				JLabel lblOtrasHabitaciones = new JLabel("Otras habitaciones:");
-				lblOtrasHabitaciones.setBounds(10, 109, 115, 33);
-				panel.add(lblOtrasHabitaciones);
-				lblOtrasHabitaciones.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-				
-				JSpinner spinner_1 = new JSpinner();
-				spinner_1.setBounds(131, 110, 35, 33);
-				panel.add(spinner_1);
-				{
-					JPanel panel_1 = new JPanel();
-					panel_1.setBorder(new TitledBorder(null, "Otras Caracteristicas", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-					panel_1.setBounds(242, 10, 350, 153);
-					panelHabitable.add(panel_1);
-					panel_1.setLayout(null);
-					
-					JComboBox comboBox = new JComboBox();
-					comboBox.setModel(new DefaultComboBoxModel(new String[] {"Casa", "Apartamento"}));
-					comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-					comboBox.setBounds(122, 20, 170, 33);
-					panel_1.add(comboBox);
-					{
-						JLabel lblTipo = new JLabel("Tipo:");
-						lblTipo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-						lblTipo.setBounds(10, 19, 102, 33);
-						panel_1.add(lblTipo);
-					}
+					taServicios = new JTextArea();
+					scrollPane.setViewportView(taServicios);
+					taServicios.setEditable(false);
 				}
 			}
 		}
@@ -292,10 +318,15 @@ public class Inmuebles extends JDialog {
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
-				JButton okButton = new JButton("Guardar");
-				okButton.setBounds(346, 5, 120, 21);
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
+				JButton btnGuardar = new JButton("Guardar");
+				btnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						guardarInmo();
+					}
+				});
+				btnGuardar.setBounds(346, 5, 120, 21);
+				btnGuardar.setActionCommand("OK");
+				buttonPane.add(btnGuardar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
@@ -312,20 +343,32 @@ public class Inmuebles extends JDialog {
 		cargarClientes();
 	}// ctor
 	
+	private void guardarInmo() {
+		
+	    //String nroPadron,String calle,String nroPuerta,String dpto,String valor,String tamanio,String ciCliente,String cantBanio,String cantCuartos,String cantOtosHabi,String tipo,String servicios,boolean isTerreno
+		InmuebleController.guardarInmo(txtNroPadron.getText(), txtCaller.getText(), txtNroCalle.getText(),(String)cbDepto.getSelectedItem(),txtValor.getText(),
+									   txtTamanioInmo.getText(), obtenerCliente(cbClientes.getSelectedIndex()),(int)sCantidadBanios.getValue(),(int)sCantCuartos.getValue(),
+									   (int)sOtrasHabit.getValue(),textAreaComodidades.getText(),(String)cbTipoHabitable.getSelectedItem(),taServicios.getText(), isTerreno);
+
+	
+	}//fin metodo
+	
+	private Cliente obtenerCliente(int index) {
+		return this.clientes.get(index);
+	}//fin emtodo
+	
 	private void cerrar() {
 		this.dispose();
 	}
 	
 	private void cargarServicioLista() {
 		if(txtAddServicio.getText().matches("^[a-zA-Z].*")){
-			taServicios.append(txtAddServicio.getText()+"\n");
+			taServicios.append(txtAddServicio.getText()+","+"\n");
 			txtAddServicio.setText("");
 		}else {
 			JOptionPane.showInternalMessageDialog(null,"error no puede ingresar numeros");
 		}
 	}//fin metodo
-
-
 
 	@SuppressWarnings("unchecked")
 	private void cargarClientes() {

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
 import repositorio.RepositorioCliente;
+import utiles.ValidarEntradas;
 import vistas.Clientes;
 import vistas.ListarClientes;
 
@@ -18,9 +19,9 @@ public class ClienteController {
 			String fechaNac, int tipoCliente) {
 		repoCliente = new RepositorioCliente();
 		// telefono.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+")
-		if (cedula.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+") && cedula.length() == 8
-				&& telefono.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+")) {
-			if (email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+		if (ValidarEntradas.ValidarEntreadaNumerica(cedula) && cedula.length() == 8
+				&& ValidarEntradas.ValidarEntreadaNumerica(telefono)) {
+			if (ValidarEntradas.ValidarEntreadaEmail(email)) {
 				Cliente cliente = new Cliente();
 				cliente.setCI(Integer.parseInt(cedula));
 				cliente.setEmail(email);
@@ -47,9 +48,8 @@ public class ClienteController {
 			String fechaNac, int tipoCliente) {
 		repoCliente = new RepositorioCliente();
 
-		if (cedula.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+")
-				&& telefono.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+")) {
-			if (email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+		if (ValidarEntradas.ValidarEntreadaNumerica(cedula) && ValidarEntradas.ValidarEntreadaNumerica(telefono)) {
+			if (ValidarEntradas.ValidarEntreadaEmail(email)) {
 				Cliente cliente = new Cliente();
 				cliente.setCI(Integer.parseInt(cedula));
 				cliente.setEmail(email);
@@ -110,4 +110,3 @@ public class ClienteController {
 	}// fin del metodo
 
 }
-

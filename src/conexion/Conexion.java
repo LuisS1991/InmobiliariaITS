@@ -18,15 +18,15 @@ import utiles.CargarConfiguracion;
  */
 
 public class Conexion {
-	
+
 	private Connection conxion = null;
 	@SuppressWarnings("unused")
 	private HashMap<String, String> config;
-	public Conexion(){
+
+	public Conexion() {
 		config = CargarConfiguracion.LoadConfigDataBase();
 	}
-	
-	
+
 	public Connection GetConexion() {
 		try {
 			try {
@@ -34,7 +34,8 @@ public class Conexion {
 			} catch (ClassNotFoundException ex) {
 				System.out.println("Error al registrar el driver de MySQL: " + ex);
 			}
-			conxion = DriverManager.getConnection(config.get("JAVA_URL_MYSQL_8.0")+
+
+			conxion = DriverManager.getConnection(config.get("JAVA_URL_MYSQL_8.0") +
 												  config.get("JAVA_DB")+
 												  config.get("JAVA_CONFIG_TIME_ZONE"),
 												  config.get("JAVA_USER"),

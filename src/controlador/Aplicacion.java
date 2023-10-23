@@ -24,8 +24,7 @@ public class Aplicacion {
 		ventana = new VentanaPpl();
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
-		ventana.CambiarVistaPanel(new Login());
-		
+		ventana.CambiarVistaPanel(new Login());		
 	}
 	
 	public static void InicioSesion() {

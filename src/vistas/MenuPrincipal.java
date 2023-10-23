@@ -27,6 +27,9 @@ public class MenuPrincipal extends JPanel {
 	private JButton btnListarInmuble;
 	private JPanel subMenuInmuble;
 	private boolean isFinishAnim = false;
+	
+	
+	
 	public MenuPrincipal() {
 		setLayout(null); 
 		
@@ -76,6 +79,11 @@ public class MenuPrincipal extends JPanel {
 		subMenuInmuble.add(btnNuevoInmuble);
 		
 		btnListarInmuble = new JButton("Listar");
+		btnListarInmuble.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPrincipalController.ListarInmo();
+			}
+		});
 		btnListarInmuble.setBounds(21, 45, 85, 21);
 		subMenuInmuble.add(btnListarInmuble);
 		
@@ -154,7 +162,7 @@ public class MenuPrincipal extends JPanel {
 		separator.setOrientation(SwingConstants.VERTICAL);
 		
 		panelVistas = new JPanel();
-		panelVistas.setBounds(164, 0, 706, 655);
+		panelVistas.setBounds(164, 0, 934, 655);
 		add(panelVistas);
 		panelVistas.setLayout(new CardLayout(0, 0));
 

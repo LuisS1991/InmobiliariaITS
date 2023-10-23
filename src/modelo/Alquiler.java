@@ -12,4 +12,30 @@ public class Alquiler extends Contrato {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getFechaInicioAlquiler() {
+		return FechaInicioAlquiler;
+	}
+
+	public void setFechaInicioAlquiler(String fechaInicioAlquiler) {
+		FechaInicioAlquiler = fechaInicioAlquiler;
+	}
+
+	public String getFechaFinAlquiler() {
+		return FechaFinAlquiler;
+	}
+
+	public void setFechaFinAlquiler(String fechaFinAlquiler) {
+		FechaFinAlquiler = fechaFinAlquiler;
+	}
+
+	public String getGarantia() {
+		return Garantia;
+	}
+
+	public void setGarantia(String garantia) {
+		Garantia = garantia;
+	}
+
+	
+	
 }

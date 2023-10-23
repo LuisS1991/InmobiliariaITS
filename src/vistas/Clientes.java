@@ -42,7 +42,7 @@ public class Clientes extends JDialog {
 	
 	public Clientes(VentanaPpl ventana,boolean modal,Cliente cli) {
 		super(ventana,modal);
-		initComponents();
+		initComponents();		
 		if(cli !=null) {
 			cargarCliente(cli);	
 		}

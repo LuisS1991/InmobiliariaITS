@@ -31,23 +31,23 @@ public class Login extends JPanel {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 30));
 		lblNewLabel_2.setBackground(Color.DARK_GRAY);
-		lblNewLabel_2.setBounds(475, 192, 335, 40);
+		lblNewLabel_2.setBounds(543, 192, 335, 40);
 		add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_1 = new JLabel("Version 0.1");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(366, 604, 80, 14);
+		lblNewLabel_1.setBounds(679, 536, 80, 14);
 		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/casaIcon.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 12, 404, 618);
+		lblNewLabel.setBounds(32, 12, 452, 618);
 		add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "INICIAR SESION", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(475, 244, 335, 280);
+		panel.setBounds(543, 244, 335, 280);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -77,7 +77,7 @@ public class Login extends JPanel {
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 30));
 		lblNewLabel_2_1.setBackground(Color.DARK_GRAY);
-		lblNewLabel_2_1.setBounds(0, 12, 838, 40);
+		lblNewLabel_2_1.setBounds(68, 12, 838, 40);
 		add(lblNewLabel_2_1);
 		ntmIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

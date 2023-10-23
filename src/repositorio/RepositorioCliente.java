@@ -126,14 +126,16 @@ public class RepositorioCliente {
 			conexion = conn.GetConexion();
 			st = conexion.createStatement();
 			rs = st.executeQuery(query);
-			Cliente cli = new Cliente();
-			cli.setCI(rs.getInt("CI"));
-			cli.setNombreCompleto(rs.getString("NombreCompleto"));
-			cli.setEmail(rs.getString("Email"));
-			cli.setFechaNac(rs.getString("FechaNac"));
-			cli.setTelefono(Integer.parseInt(rs.getString("telefono")));
-			cli.setTipoCliente(Integer.parseInt(rs.getString("tipoCliente")));
-
+			Cliente cli =null;
+			if (rs.next()) {
+				cli = new Cliente();
+				cli.setCI(rs.getInt("CI"));
+				cli.setNombreCompleto(rs.getString("NombreCompleto"));
+				cli.setEmail(rs.getString("Email"));
+				cli.setFechaNac(rs.getString("FechaNac"));
+				cli.setTelefono(Integer.parseInt(rs.getString("telefono")));
+				cli.setTipoCliente(Integer.parseInt(rs.getString("tipoCliente")));
+			}
 			st.close();
 			return cli;
 		} catch (SQLException e) {

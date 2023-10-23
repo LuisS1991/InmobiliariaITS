@@ -1,26 +1,30 @@
 package modelo;
 
-import java.util.ArrayList;
 
 public class Terreno extends Inmueble{
 
 	
-	public Terreno(int nroPadron, String calle, String dpto, int nroPuerta, int valor, int tamaño) {
-		super(nroPadron, calle, dpto, nroPuerta, valor, tamaño);
-		// TODO Auto-generated constructor stub
-	}
 
-	private ArrayList<String> Servicios;
+	private String Servicios;
 	
 
-	public ArrayList<String> getServicios() {
+	public String getServicios() {
 		return Servicios;
 	}
 
-	public void setServicios(ArrayList<String> servicios) {
+	public void setServicios(String servicios) {
 		Servicios = servicios;
 	}
+
+	public Terreno(int nroPadron, String calle, int nroPuerta, String dpto, int valor, int tamaño, String servicios,
+			Cliente cli) {
+		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
+		Servicios = servicios;
+	}
+
+	public Terreno() {
 		
+	}
 		
-		
+			
 }
