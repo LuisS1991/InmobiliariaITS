@@ -3,41 +3,49 @@ package conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+
+import utiles.CargarConfiguracion;
 
 /*
  * ANTES DE ENTREGAR EL PROYECTO CORROBORAR QUE FUNCIONA EN LA BASE DE DATOS DE LA UTU
- * 
+ * CAMBIAR CONFIGURACION DEL ARCHIVO DE ARRANQUE
  * */
+/*
+ * private String usuario = ""; private String pass = ""; private String db =
+ * "db"; private String url = ""; private String driver =
+ * "com.mysql.cj.jdbc.Driver";
+ */
+
 public class Conexion {
-
-	private String usuario = "root";
-	private String pass = "";
-	private String db = "inmobiliariaITS";
-	// private String url = "jdbc:mysql:localhost:3306/" + db;
-	private String urlDebug = "jdbc:mariadb://localhost:3306/" + db;
+	
 	private Connection conxion = null;
-
+	@SuppressWarnings("unused")
+	private HashMap<String, String> config;
+	public Conexion(){
+		config = CargarConfiguracion.LoadConfigDataBase();
+	}
+	
+	
 	public Connection GetConexion() {
+		try {
 			try {
-				// Registramos el driver de MySQL (MariaDB)
-				/*
-				 * no olvidar cambiar al presentar el proyecto sino no funciona
-				 * 
-				 */
-				try {
-					// Class.forName("com.mysql.jdbc.Driver");
-					Class.forName("org.mariadb.jdbc.Driver");
-				} catch (ClassNotFoundException ex) {
-					System.out.println("Error al registrar el driver de MySQL: " + ex);
-				}
-				conxion = DriverManager.getConnection(urlDebug, usuario, pass);
-
-				return conxion;
-
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				return null;
+				Class.forName(config.get("JAVA_DRIVER_8.0"));
+			} catch (ClassNotFoundException ex) {
+				System.out.println("Error al registrar el driver de MySQL: " + ex);
 			}
+			conxion = DriverManager.getConnection(config.get("JAVA_URL_MYSQL_8.0")+
+												  config.get("JAVA_DB")+
+												  config.get("JAVA_CONFIG_TIME_ZONE"),
+												  config.get("JAVA_USER"),
+												  config.get("JAVA_PASS"));
+
+			return conxion;
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	public void CerrarConexion() {

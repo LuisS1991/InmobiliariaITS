@@ -5,13 +5,15 @@ public class Inmueble {
 	private int NroPadron;
 	private String Calle;
 	private int NroPuerta;
+	private String Departamento;
 	private int Valor;
 	private int Tamaño; //metros cuadrados
 	
-	public Inmueble(int nroPadron, String calle, int nroPuerta, int valor, int tamaño) {
+	public Inmueble(int nroPadron, String calle, String dpto,int nroPuerta, int valor, int tamaño) {
 		super();
 		NroPadron = nroPadron;
 		Calle = calle;
+		Departamento = dpto;
 		NroPuerta = nroPuerta;
 		Valor = valor;
 		Tamaño = tamaño;
@@ -49,6 +51,17 @@ public class Inmueble {
 		Tamaño = tamaño;
 	}
 
+
+	public String getDepartamento() {
+		return Departamento;
+	}
+
+
+	public void setDepartamento(String departamento) {
+		Departamento = departamento;
+	}
+	
+	
 
 	
 }

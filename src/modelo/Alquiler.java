@@ -8,7 +8,7 @@ public class Alquiler extends Contrato {
 	//mismo caso que el anterior
 	
 	public Alquiler(int nroContrato, int autorizacion) {
-		super(nroContrato,  autorizacion);
+ 		super(nroContrato,  autorizacion);
 		// TODO Auto-generated constructor stub
 	}
 

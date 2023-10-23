@@ -5,19 +5,14 @@ import java.util.ArrayList;
 public class Terreno extends Inmueble{
 
 	
+	public Terreno(int nroPadron, String calle, String dpto, int nroPuerta, int valor, int tamaño) {
+		super(nroPadron, calle, dpto, nroPuerta, valor, tamaño);
+		// TODO Auto-generated constructor stub
+	}
+
 	private ArrayList<String> Servicios;
 	
-	public Terreno(int nroPadron, String calle, int nroPuerta, int valor, int tamaño,
-			ArrayList<String> servicios) {
-		super(nroPadron, calle, nroPuerta, valor,  tamaño);
-		Servicios = servicios;
-	}
 
-	public Terreno(int nroPadron, String calle, int nroPuerta, int valor,  int tamaño) {
-		super(nroPadron, calle, nroPuerta, valor,  tamaño);
-	}
-
-	
 	public ArrayList<String> getServicios() {
 		return Servicios;
 	}

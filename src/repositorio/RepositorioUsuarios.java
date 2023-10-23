@@ -43,7 +43,7 @@ public class RepositorioUsuarios {
 
 	// este metodo se obtien del repositorio de datos
 	public ArrayList<Usuario> ListarUsuarios() {
-		usuarios = new ArrayList<Usuario>();
+		usuarios = new ArrayList<Usuario>(); 
 		Usuario usu = null;
 		String query = "SELECT * FROM `Usuario`;";
 

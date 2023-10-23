@@ -1,56 +1,41 @@
 package controlador;
 
-import vistas.Clientes;
-import vistas.Inmuebles;
-import vistas.Contratos;
-import vistas.Configuraciones;
+import java.awt.Cursor;
+
 import vistas.MenuPrincipal;
 
 public class MenuPrincipalController {
-	//instancias de vistas
-	private static MenuPrincipal menuPrincipal;
-	//se debe instanciar mediante su controlador correspondiente asi realizan sus acciones correspondientes
-	private static Clientes clientes;	
-	private static Inmuebles inmuebles;
-	private static Contratos contratos;	
-	private static Configuraciones config;
 	
+	private static MenuPrincipal menuPrincipal;	
+	
+	//VENTANA MENU PRINCIPAL
 	public static MenuPrincipal ShowMenuPrinciapl() {
-		menuPrincipal = new MenuPrincipal();
+		menuPrincipal =  new MenuPrincipal();
 		return menuPrincipal;
 	}
 	
-	public static void ShowUsuarios() {
+	//USUARIO
+	public static void VerUsuarios() {
 		menuPrincipal.CambiarVista(UsuariosController.ShowUsuarios());
 	}
 	
-	
-	public static void ShowCliente() {
-		clientes = new Clientes();
-		menuPrincipal.CambiarVista(clientes);
+	//CLIENTES
+	public static void VerListadoClientes() {
+		menuPrincipal.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		menuPrincipal.CambiarVista(ClienteController.VerClientes());
+		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}
+		
+	public static void VerAddClienteNuevo() {
+		ClienteController.VerAddClienteNuevo();
 	}
 	
-	public static void ShowInmuebles() {
-		inmuebles = new Inmuebles();
-		menuPrincipal.CambiarVista(inmuebles);
+	//INMUBLES	
+	public static void VerNuevoInmuble() {
+		InmuebleController.VerNuevoInmuble();
 	}
 	
-	
-	public static void ShowContratos() {
-		contratos = new Contratos();
-		menuPrincipal.CambiarVista(contratos);
-	}
-	
-	public static void ShowConfiguraciones() {
-		config = new Configuraciones();
-		menuPrincipal.CambiarVista(config);
-	}
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

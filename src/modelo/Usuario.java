@@ -1,7 +1,5 @@
 package modelo;
 
-import enumeracion.Rol;
-
 public class Usuario {
 
 	private String nombreUsuario;
@@ -48,19 +46,5 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	public String ToStringRol(int i) {
-		String nombre = "";
-		
-		if( Rol.CEO.getPuesto() == i ) {
-			nombre = Rol.CEO.name();
-		}
-		else if(Rol.GERENTE.getPuesto() == i ) {
-			nombre = Rol.GERENTE.name();
-		}
-		else {
-			nombre = Rol.ADMINISTRATIVO.name();
-		}
-		return nombre;
-	}
 
 }

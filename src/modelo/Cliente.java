@@ -2,12 +2,16 @@ package modelo;
 
 import java.util.ArrayList;
 
+import enumeracion.TipoClientes;
+
 public class Cliente {
 	private int CI;
 	private String NombreCompleto;
 	private String FechaNac;
 	private String Email;
 	private int Telefono;
+	public int tipoCliente;
+ 	
 	private ArrayList<Inmueble> ListInmuebles;
 		
 	public Cliente(int cI, String nombreCompleto, String fechaNac, String email, int telefono) {
@@ -18,7 +22,15 @@ public class Cliente {
 		Telefono = telefono;
 	}
 	
+	public Cliente() {
+	}
 	
+	public int getTipoCliente() {
+		return tipoCliente;
+	}
+	public void setTipoCliente(int tipo) {
+		tipoCliente = tipo;
+	}
 	public int getCI() {
 		return CI;
 	}
@@ -55,7 +67,19 @@ public class Cliente {
 	public void setListInmuebles(ArrayList<Inmueble> listInmuebles) {
 		ListInmuebles = listInmuebles;
 	}
-	
-	
-	
+
+	public String toStringTipoCliente(int i) {
+		String nombre = "";
+		
+		if( TipoClientes.Dueño.getTipoCliente() == i ) {
+			nombre = TipoClientes.Dueño.name();
+		}
+		else if(TipoClientes.Comprador.getTipoCliente() == i ) {
+			nombre = TipoClientes.Comprador.name();
+		}
+		else {
+			nombre = TipoClientes.Alquiler.name();
+		}
+		return nombre;
+	}
 }
