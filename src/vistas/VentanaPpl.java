@@ -18,16 +18,17 @@ public class VentanaPpl extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				  int a=JOptionPane.showConfirmDialog(null,"Estas Seguro de salir?");
-				  if(a==JOptionPane.YES_OPTION){
-				  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); }
+				int a = JOptionPane.showConfirmDialog(null, "Estas Seguro de salir?");
+				if (a == JOptionPane.YES_OPTION) {
+					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				}
 			}
 		});
 		this.setResizable(false);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPpl.class.getResource("/imagenes/casaIcon.png")));
 		this.setTitle(Aplicacion.configApp.get("JAVA_NAME"));
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 1108, 700);
 		contentPane = new JPanel();
 		this.setContentPane(contentPane);

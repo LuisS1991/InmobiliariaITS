@@ -1,18 +1,14 @@
 package modelo;
 
 public class Habitable extends Inmueble {
-	
+
 	private String Tipo;
 	private int Cantidad_Cuartos;
 	private int Cantidad_Banos;
 	private int OtrasHabitaciones;
 	private String comodidades;
-	
-	
-		
-	
 
-	public Habitable(int nroPadron, String calle, int nroPuerta, String dpto, int valor, int tamaño, Cliente cli,
+	public Habitable(int nroPadron, String calle, int nroPuerta, String dpto, double valor, double tamaño, Cliente cli,
 			String tipo, int cantidad_Cuartos, int cantidad_Banos, int otrasHabitaciones, String comodidades) {
 		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
 		Tipo = tipo;
@@ -22,13 +18,9 @@ public class Habitable extends Inmueble {
 		this.comodidades = comodidades;
 	}
 
-		
-	
 	public Habitable() {
-		
+
 	}
-
-
 
 	public String getComodidades() {
 		return comodidades;
@@ -70,6 +62,4 @@ public class Habitable extends Inmueble {
 		OtrasHabitaciones = otrasHabitaciones;
 	}
 
-	
-	
 }

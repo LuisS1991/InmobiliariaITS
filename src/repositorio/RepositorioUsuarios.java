@@ -43,7 +43,7 @@ public class RepositorioUsuarios {
 
 	// este metodo se obtien del repositorio de datos
 	public ArrayList<Usuario> ListarUsuarios() {
-		usuarios = new ArrayList<Usuario>(); 
+		usuarios = new ArrayList<Usuario>();
 		Usuario usu = null;
 		String query = "SELECT * FROM `Usuario`;";
 
@@ -77,11 +77,11 @@ public class RepositorioUsuarios {
 		try {
 			conexion = conn.GetConexion();
 			ps = conexion.prepareStatement(query);
-            ps.setString(1, usu.getNombreUsuario());
-            ps.setString(2, usu.getPass());
-            ps.setInt(3, usu.getRol());
-            ps.executeUpdate();
-            ps.close();
+			ps.setString(1, usu.getNombreUsuario());
+			ps.setString(2, usu.getPass());
+			ps.setInt(3, usu.getRol());
+			ps.executeUpdate();
+			ps.close();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

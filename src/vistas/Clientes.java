@@ -24,7 +24,6 @@ import enumeracion.TipoClientes;
 import modelo.Cliente;
 import java.util.Date;
 
-
 @SuppressWarnings("serial")
 public class Clientes extends JDialog {
 
@@ -39,17 +38,17 @@ public class Clientes extends JDialog {
 	private JLabel lblTitulo;
 	private JButton btnGuardar;
 	private JButton btnEditar;
-	
-	public Clientes(VentanaPpl ventana,boolean modal,Cliente cli) {
-		super(ventana,modal);
-		initComponents();		
-		if(cli !=null) {
-			cargarCliente(cli);	
+
+	public Clientes(VentanaPpl ventana, boolean modal, Cliente cli) {
+		super(ventana, modal);
+		initComponents();
+		if (cli != null) {
+			cargarCliente(cli);
 		}
-	}//ctor
-	
+	}// ctor
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void initComponents(){
+	private void initComponents() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Clientes.class.getResource("/imagenes/casaIcon.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Nuevo Cliente");
@@ -58,8 +57,7 @@ public class Clientes extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
-	
+
 		contentPanel.setLayout(null);
 		{
 			lblTitulo = new JLabel("Agregar Nuevo Cliente");
@@ -110,18 +108,18 @@ public class Clientes extends JDialog {
 			txtNombreCompleto.setBounds(482, 99, 170, 33);
 			contentPanel.add(txtNombreCompleto);
 		}
-		
+
 		dateFechaNac = new JDateChooser();
 		dateFechaNac.setDateFormatString("yyyy-MM-dd");
 		dateFechaNac.setDate(Date.from(Instant.now()));
 		dateFechaNac.setBounds(122, 166, 170, 33);
 		contentPanel.add(dateFechaNac);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(482, 166, 170, 33);
 		contentPanel.add(txtEmail);
-		
+
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(122, 246, 170, 33);
@@ -158,7 +156,7 @@ public class Clientes extends JDialog {
 				btnEditar.setVisible(false);
 				btnEditar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						 editarCliente();
+						editarCliente();
 					}
 				});
 				btnEditar.setActionCommand("OK");
@@ -180,8 +178,8 @@ public class Clientes extends JDialog {
 			contentPanel.add(cbTipoDuenio);
 		}
 	}
-	
-	private void cargarCliente(Cliente cli){
+
+	private void cargarCliente(Cliente cli) {
 		setTitle("Editar Cliente");
 		lblTitulo.setText("Editar Cliente");
 		txtCI.setText(String.valueOf(cli.getCI()));
@@ -201,30 +199,32 @@ public class Clientes extends JDialog {
 		}
 		btnGuardar.setVisible(false);
 		btnEditar.setVisible(true);
-	}//fin metodo
-	
+	}// fin metodo
+
 	private void guardarCliente() {
 		this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		String formato = dateFechaNac.getDateFormatString();
 		Date fecha = dateFechaNac.getDate();
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		String fnacim = String.valueOf(sdf.format(fecha));
-		ClienteController.GuardarCliente(txtCI.getText(), txtNombreCompleto.getText(), txtEmail.getText(), txtTelefono.getText(), fnacim, cbTipoDuenio.getSelectedIndex());
+		ClienteController.GuardarCliente(txtCI.getText(), txtNombreCompleto.getText(), txtEmail.getText(),
+				txtTelefono.getText(), fnacim, cbTipoDuenio.getSelectedIndex());
 		this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		limpiarCampos();
 	}
-	
+
 	private void editarCliente() {
 		this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		String formato = dateFechaNac.getDateFormatString();
 		Date fecha = dateFechaNac.getDate();
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		String fnacim = String.valueOf(sdf.format(fecha));
-		ClienteController.ActualizarCliente(txtCI.getText(), txtNombreCompleto.getText(), txtEmail.getText(), txtTelefono.getText(), fnacim, cbTipoDuenio.getSelectedIndex());
+		ClienteController.ActualizarCliente(txtCI.getText(), txtNombreCompleto.getText(), txtEmail.getText(),
+				txtTelefono.getText(), fnacim, cbTipoDuenio.getSelectedIndex());
 		this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		limpiarCampos();
 	}
-	
+
 	private void cerraJDialog() {
 		this.dispose();
 	}

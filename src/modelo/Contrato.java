@@ -8,18 +8,16 @@ public class Contrato {
 	private int Autorizacion;
 	private ArrayList<Inmueble> ListInmuebles;
 
-	
 	public Contrato(int nroContrato, int autorizacion, ArrayList<Inmueble> listInmuebles) {
 		NroContrato = nroContrato;
 		Autorizacion = autorizacion;
 		ListInmuebles = listInmuebles;
 	}
 
-	public Contrato(int nroContrato,  int autorizacion) {
+	public Contrato(int nroContrato, int autorizacion) {
 		NroContrato = nroContrato;
 		Autorizacion = autorizacion;
 	}
-
 
 	public int getNroContrato() {
 		return NroContrato;
@@ -37,7 +35,6 @@ public class Contrato {
 		Autorizacion = autorizacion;
 	}
 
-
 	public ArrayList<Inmueble> getListInmuebles() {
 		return ListInmuebles;
 	}
@@ -45,6 +42,5 @@ public class Contrato {
 	public void setListInmuebles(ArrayList<Inmueble> listInmuebles) {
 		ListInmuebles = listInmuebles;
 	}
-	
 
 }

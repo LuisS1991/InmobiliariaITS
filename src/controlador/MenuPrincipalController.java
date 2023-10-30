@@ -5,42 +5,40 @@ import java.awt.Cursor;
 import vistas.MenuPrincipal;
 
 public class MenuPrincipalController {
-	
-	private static MenuPrincipal menuPrincipal;	
-	
-	//VENTANA MENU PRINCIPAL
+
+	private static MenuPrincipal menuPrincipal;
+
+	// VENTANA MENU PRINCIPAL
 	public static MenuPrincipal ShowMenuPrinciapl() {
-		menuPrincipal =  new MenuPrincipal();
+		menuPrincipal = new MenuPrincipal();
 		return menuPrincipal;
 	}
-	
-	//USUARIO
+
+	// USUARIO
 	public static void VerUsuarios() {
 		menuPrincipal.CambiarVista(UsuariosController.ShowUsuarios());
 	}
-	
-	//CLIENTES
+
+	// CLIENTES
 	public static void VerListadoClientes() {
 		menuPrincipal.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		menuPrincipal.CambiarVista(ClienteController.VerClientes());
 		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
-		
+
 	public static void VerAddClienteNuevo() {
 		ClienteController.VerAddClienteNuevo();
 	}
-	
-	//INMUBLES	
+
+	// INMUBLES
 	public static void VerNuevoInmuble() {
 		InmuebleController.VerNuevoInmuble();
 	}
-	
+
 	public static void ListarInmo() {
 		menuPrincipal.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 		menuPrincipal.CambiarVista(InmuebleController.TodosInmo());
 		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
-	
-	
-	
+
 }

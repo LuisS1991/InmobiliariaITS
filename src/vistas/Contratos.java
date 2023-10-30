@@ -13,7 +13,7 @@ public class Contratos extends JPanel {
 	public Contratos() {
 		setLayout(null);
 		setToolTipText("contratos");
-		
+
 		JLabel lblNewLabel = new JLabel("contratos");
 		lblNewLabel.setBounds(244, 271, 55, 14);
 		add(lblNewLabel);

@@ -23,30 +23,30 @@ public class ListarClientes extends JPanel {
 	private DefaultTableModel modeloTabla;
 	private Object[][] dataTabla = null;
 	private JButton btnEliminar;
-	
+
 	public ListarClientes(ArrayList<Cliente> listado) {
 		clientes = listado;
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 64, 801, 473);
 		add(scrollPane);
-		
+
 		tableUsuarios = new JTable();
 		scrollPane.setViewportView(tableUsuarios);
-		
+
 		JLabel lblNewLabel = new JLabel("Listado de Clientes");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 26));
 		lblNewLabel.setBounds(27, 10, 626, 48);
 		add(lblNewLabel);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 548, 655, 37);
 		add(panel);
 		panel.setLayout(null);
-			
+
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -54,10 +54,10 @@ public class ListarClientes extends JPanel {
 			}
 		});
 		btnEliminar.setBounds(460, 7, 155, 25);
-		if(Aplicacion.getUsuarioActual().getRol() == 0 || Aplicacion.getUsuarioActual().getRol() == 1) {
+		if (Aplicacion.getUsuarioActual().getRol() == 0 || Aplicacion.getUsuarioActual().getRol() == 1) {
 			panel.add(btnEliminar);
 		}
-		
+
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -68,16 +68,16 @@ public class ListarClientes extends JPanel {
 		panel.add(btnEditar);
 		CargarTable();
 	}
-		
-	private void CargarTable(){
-		String[] columnas = {"Indice", "Cedula", "Nombre Completo", "Fecha Nacimiento", "Telefono", "E-mail", "Tipo"};
+
+	private void CargarTable() {
+		String[] columnas = { "Indice", "Cedula", "Nombre Completo", "Fecha Nacimiento", "Telefono", "E-mail", "Tipo" };
 		dataTabla = new Object[clientes.size()][columnas.length];
-		
-		int i =0;
+
+		int i = 0;
 		for (Cliente cli : clientes) {
-			String[] arrData = { String.valueOf(i + 1),String.valueOf(cli.getCI()),cli.getNombreCompleto(),
-					String.valueOf(cli.getFechaNac()),String.valueOf(cli.getTelefono()),cli.getEmail(),
-					String.valueOf(cli.toStringTipoCliente(cli.getTipoCliente()))};
+			String[] arrData = { String.valueOf(i + 1), String.valueOf(cli.getCI()), cli.getNombreCompleto(),
+					String.valueOf(cli.getFechaNac()), String.valueOf(cli.getTelefono()), cli.getEmail(),
+					String.valueOf(cli.toStringTipoCliente(cli.getTipoCliente())) };
 			dataTabla[i] = arrData;
 			i++;
 		}
@@ -86,20 +86,20 @@ public class ListarClientes extends JPanel {
 			public boolean isCellEditable(int rowIndex, int colIndex) {
 				return false;
 			}
-			
+
 		};
 		tableUsuarios.setModel(modeloTabla);
-		
-	}//fin metodo
+
+	}// fin metodo
 
 	private void editarCliente() {
 		int ci = Integer.parseInt((String) tableUsuarios.getValueAt(tableUsuarios.getSelectedRow(), 1));
 		for (Cliente cliente : clientes) {
-			 if(ci == cliente.getCI()){
-				 ClienteController.EditarClienteNuevo(cliente);
-			 }
+			if (ci == cliente.getCI()) {
+				ClienteController.EditarClienteNuevo(cliente);
+			}
 		}
-	}//fin metodo
+	}// fin metodo
 
 	private void eliminarCliente() {
 		int ci = Integer.parseInt((String) tableUsuarios.getValueAt(tableUsuarios.getSelectedRow(), 1));

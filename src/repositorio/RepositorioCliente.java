@@ -126,7 +126,7 @@ public class RepositorioCliente {
 			conexion = conn.GetConexion();
 			st = conexion.createStatement();
 			rs = st.executeQuery(query);
-			Cliente cli =null;
+			Cliente cli = null;
 			if (rs.next()) {
 				cli = new Cliente();
 				cli.setCI(rs.getInt("CI"));

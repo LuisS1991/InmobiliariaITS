@@ -1,12 +1,8 @@
 package modelo;
 
-
-public class Terreno extends Inmueble{
-
-	
+public class Terreno extends Inmueble {
 
 	private String Servicios;
-	
 
 	public String getServicios() {
 		return Servicios;
@@ -16,15 +12,14 @@ public class Terreno extends Inmueble{
 		Servicios = servicios;
 	}
 
-	public Terreno(int nroPadron, String calle, int nroPuerta, String dpto, int valor, int tamaño, String servicios,
-			Cliente cli) {
+	public Terreno(int nroPadron, String calle, int nroPuerta, String dpto, double valor, double tamaño,
+			String servicios, Cliente cli) {
 		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
 		Servicios = servicios;
 	}
 
 	public Terreno() {
-		
+
 	}
-		
-			
+
 }
