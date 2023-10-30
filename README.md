@@ -28,7 +28,9 @@ asi como una forma de tener la logica del negocio separada y desacopladad del in
 * Agregar Clientes
 * Eliminar CLientes
 * Rol de Usuarios
-* 
+* Agregar Inmueble
+* Listar Inmuebles
+* Eliminar Inmueble
 ## NOTA IMPORTANTE
 **Se usa conextor de mariadb mientras el proyecto este en desarrollo a los efectos de porder conectarnos a la base de datos utilizada, 
 el  dia de la entrega se debe combiar los conectores a mysql.**
