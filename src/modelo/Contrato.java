@@ -6,12 +6,15 @@ public class Contrato {
 
 	private int NroContrato;
 	private int Autorizacion;
+	private String Descripcion;
+	private int Precio;
 	private ArrayList<Inmueble> ListInmuebles;
 
-	public Contrato(int nroContrato, int autorizacion, ArrayList<Inmueble> listInmuebles) {
+	public Contrato(int nroContrato, int autorizacion, ArrayList<Inmueble> listInmuebles,Sring desc) {
 		NroContrato = nroContrato;
 		Autorizacion = autorizacion;
 		ListInmuebles = listInmuebles;
+		Descripcion = desc;
 	}
 
 	public Contrato(int nroContrato, int autorizacion) {
