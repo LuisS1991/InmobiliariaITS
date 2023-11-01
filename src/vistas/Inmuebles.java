@@ -242,7 +242,7 @@ public class Inmuebles extends JDialog {
 					panel_1.setLayout(null);
 
 					cbTipoHabitable = new JComboBox();
-					cbTipoHabitable.setModel(new DefaultComboBoxModel(new String[] { "Casa", "Apartamento" }));
+					cbTipoHabitable.setModel(new DefaultComboBoxModel(new String[] { "Casa", "Apartamento","Mejora" }));
 					cbTipoHabitable.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 					cbTipoHabitable.setBounds(122, 20, 170, 33);
 					panel_1.add(cbTipoHabitable);
