@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import controlador.Aplicacion;
+import controlador.ContratoController;
 import controlador.MenuPrincipalController;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,14 +20,14 @@ public class MenuPrincipal extends JPanel {
 	private JPanel subMenuCliente;
 	private JPanel PMenuLateral;
 	private JToggleButton btnCliente;
-	private JButton btnContratos;
+	private JToggleButton btnContratos;
 	private JButton btnUsuarios;
 	private JSeparator separator;
 	private JToggleButton btnInmuble;
 	private JButton btnNuevoInmuble;
 	private JButton btnListarInmuble;
 	private JPanel subMenuInmuble;
-	private boolean isFinishAnim = false;
+	private JPanel subMenuContrato;
 
 	public MenuPrincipal() {
 		setLayout(null);
@@ -36,10 +37,20 @@ public class MenuPrincipal extends JPanel {
 		add(PMenuLateral);
 		PMenuLateral.setLayout(null);
 
-		btnContratos = new JButton("Contratos");
+		btnContratos = new JToggleButton("Contratos");
+		btnContratos.setName("Contratos");
 		btnContratos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(btnContratos.isSelected()) {
+					btnCliente.setEnabled(false);
+					btnInmuble.setEnabled(false);
+					btnUsuarios.setVisible(false);
+				}else {
+					btnCliente.setEnabled(true);
+					btnInmuble.setEnabled(true);
+					btnUsuarios.setVisible(true);
+				}
+				AnimacionSubMenu(subMenuContrato, btnContratos);
 			}
 		});
 
@@ -47,14 +58,13 @@ public class MenuPrincipal extends JPanel {
 		btnCliente.setName("Clientes");
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (isFinishAnim) {
-					btnInmuble.setVisible(true);
-					btnContratos.setVisible(true);
-					btnUsuarios.setVisible(true);
-				} else {
+				
+				if (btnCliente.isSelected()) {
 					btnInmuble.setVisible(false);
 					btnContratos.setVisible(false);
-					btnUsuarios.setVisible(false);
+				} else {
+					btnInmuble.setVisible(true);
+					btnContratos.setVisible(true);
 				}
 				AnimacionSubMenu(subMenuCliente, btnCliente);
 			}
@@ -107,6 +117,30 @@ public class MenuPrincipal extends JPanel {
 		});
 		btnListar.setBounds(21, 45, 85, 21);
 		subMenuCliente.add(btnListar);
+		
+		subMenuContrato = new JPanel();
+		subMenuContrato.setLayout(null);
+		subMenuContrato.setBackground(new Color(174, 174, 174));
+		subMenuContrato.setBounds(12, 249, 130, 0);
+		PMenuLateral.add(subMenuContrato);
+		
+		JButton btnNuevoContrato = new JButton("Nuevo");
+		btnNuevoContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ContratoController.FormAltaContrato();
+			}
+		});
+		btnNuevoContrato.setBounds(21, 10, 85, 21);
+		subMenuContrato.add(btnNuevoContrato);
+		
+		JButton btnListarContrato = new JButton("Listar");
+		btnListarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ContratoController.FormAltaContrato();
+			}
+		});
+		btnListarContrato.setBounds(21, 45, 85, 21);
+		subMenuContrato.add(btnListarContrato);
 		btnCliente.setBounds(12, 96, 130, 37);
 		PMenuLateral.add(btnCliente);
 		btnContratos.setBounds(12, 210, 130, 37);
@@ -118,7 +152,7 @@ public class MenuPrincipal extends JPanel {
 				MenuPrincipalController.VerUsuarios();
 			}
 		});
-		btnUsuarios.setBounds(12, 257, 130, 37);
+		btnUsuarios.setBounds(12, 269, 130, 37);
 		PMenuLateral.add(btnUsuarios);
 
 		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
@@ -139,12 +173,12 @@ public class MenuPrincipal extends JPanel {
 		btnInmuble.setName("Inmubles");
 		btnInmuble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (isFinishAnim) {
-					btnContratos.setVisible(true);
-					btnUsuarios.setVisible(true);
-				} else {
+				if (btnInmuble.isSelected()) {
 					btnContratos.setVisible(false);
-					btnUsuarios.setVisible(false);
+					btnCliente.setEnabled(false);
+				} else {
+					btnContratos.setVisible(true);
+					btnCliente.setEnabled(true);
 				}
 				AnimacionSubMenu(subMenuInmuble, btnInmuble);
 			}
@@ -190,7 +224,6 @@ public class MenuPrincipal extends JPanel {
 				}
 			};
 			hilo.start();
-			isFinishAnim = true;
 			return;
 		}
 		if (contenedor.getBounds().height >= 0) {
@@ -210,9 +243,7 @@ public class MenuPrincipal extends JPanel {
 				}
 			};
 			hilo.start();
-			isFinishAnim = false;
 			return;
 		}
 	}// fin
-
 }
