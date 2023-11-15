@@ -202,6 +202,7 @@ public class MenuPrincipal extends JPanel {
 		panelVistas.removeAll();
 		panel.setBounds(0, 0, panelVistas.getBounds().width, panelVistas.getBounds().height);
 		panelVistas.add(panel);
+		panelVistas.revalidate();
 		panelVistas.repaint();
 	}
 
