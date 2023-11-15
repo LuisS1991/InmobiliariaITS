@@ -1,42 +1,53 @@
 package vistas;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.time.Instant;
-import java.util.Date;
-import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import com.toedter.calendar.JDateChooser;
+import controlador.ContratoController;
+import enumeracion.TipoContrato;
+import modelo.Cliente;
+import modelo.Contrato;
 
 @SuppressWarnings("serial")
 public class FormContrato extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JDateChooser dcFechaInicio;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cbTipoContrato;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cbCliente;
 	private JDateChooser dcFechaFin;
 	private JTextArea taDesc;
 	private JTextField txtNroContrato;
 	private JTextField txtPrecio;
 	private JTextField txtGarantia;
+	private ArrayList<Cliente> listadoCliente;
+	private Contrato contrato;
 
-	public FormContrato(VentanaPpl ventana, boolean modal) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public FormContrato(VentanaPpl ventana, boolean modal, ArrayList<Cliente> cliente, Contrato con) {
 		super(ventana, modal);
+		this.listadoCliente = cliente;
+		this.contrato = con;
 		setTitle("Alta Contrato");
 		setBounds(100, 100, 762, 512);
 		getContentPane().setLayout(new BorderLayout());
@@ -62,7 +73,7 @@ public class FormContrato extends JDialog {
 		}
 		{
 			cbTipoContrato = new JComboBox();
-			cbTipoContrato.setModel(new DefaultComboBoxModel(new String[] { "Compra", "Venta", "Alquiler" }));
+			cbTipoContrato.setModel(new DefaultComboBoxModel(TipoContrato.values()));
 			cbTipoContrato.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 			cbTipoContrato.setBounds(480, 49, 170, 33);
 			contentPanel.add(cbTipoContrato);
@@ -158,6 +169,11 @@ public class FormContrato extends JDialog {
 			}
 			{
 				JButton btnActualizar = new JButton("Actualizar");
+				btnActualizar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						actualizar();
+					}
+				});
 				btnActualizar.setActionCommand("OK");
 				btnActualizar.setBounds(194, 5, 170, 33);
 				buttonPane.add(btnActualizar);
@@ -174,18 +190,25 @@ public class FormContrato extends JDialog {
 				panel.add(taDesc, "name_331396085020200");
 			}
 		}
+		CargarClietnes();
+		if (this.contrato != null) {
+			CargarContrato();
+		}
+	}// ctor
+
+	@SuppressWarnings({ "unchecked" })
+	private void CargarClietnes() {
+		for (Cliente cliente : listadoCliente) {
+			cbCliente.addItem(cliente.getNombreCompleto());
+		}
 	}
 
 	private void GuardarContrato() {
-		dcFechaInicio.getDate();
-		cbTipoContrato.getSelectedItem();
-		cbCliente.getSelectedItem();
-		dcFechaFin.getDate();
-		taDesc.getText();
-		txtNroContrato.getText();
-		txtPrecio.getText();
-		txtGarantia.getText();
-
+		ContratoController.AltaContratos(dcFechaInicio.getDate(), dcFechaFin.getDate(), txtNroContrato.getText(),
+				this.obtenerCliente((String)cbCliente.getSelectedItem()),cbTipoContrato.getSelectedIndex(), txtPrecio.getText(),
+				txtGarantia.getText(), taDesc.getText());
+		limpiar();
+		cerrar();
 	}
 
 	private void cerrar() {
@@ -202,4 +225,44 @@ public class FormContrato extends JDialog {
 		txtPrecio.setText("");
 		txtGarantia.setText("");
 	}
+
+	private void CargarContrato() {
+		txtNroContrato.setText(String.valueOf(contrato.getNroContrato()));
+		txtPrecio.setText(String.valueOf(contrato.getPrecio()));
+		taDesc.append(contrato.getDescripcion());
+		txtGarantia.setText(contrato.getGarantia());
+		cbTipoContrato.setSelectedItem(contrato.getTipo());
+		cbCliente.setSelectedIndex(this.listadoCliente.indexOf(contrato.getCliente()));
+		cbTipoContrato.setSelectedIndex(contrato.getTipo());
+		
+		SimpleDateFormat formato = new SimpleDateFormat(dcFechaInicio.getDateFormatString());
+		Date fecha;
+		try {
+			fecha = formato.parse(contrato.getFechaInicio());
+			dcFechaInicio.setDate(fecha);
+			fecha = formato.parse(contrato.getFechaFin());
+			dcFechaFin.setDate(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// fin
+
+	private void actualizar() {
+		ContratoController.ActualizarContrato(dcFechaInicio.getDate(), dcFechaFin.getDate(), txtNroContrato.getText(),
+				this.obtenerCliente((String)cbCliente.getSelectedItem()),cbTipoContrato.getSelectedIndex(), txtPrecio.getText(),
+				txtGarantia.getText(), taDesc.getText());
+		limpiar();
+		cerrar();
+	}
+	
+	private Cliente obtenerCliente(String clienteNombre){
+		for (Cliente cliente : listadoCliente) {
+			if(cliente.getNombreCompleto().equals(clienteNombre)) {
+				return cliente;
+			}
+		}
+		return null;
+	}//fin
+	
 }

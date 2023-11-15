@@ -41,4 +41,10 @@ public class MenuPrincipalController {
 		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
+	// CONTRATO
+	public static void ListarContrato() {
+		menuPrincipal.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		menuPrincipal.CambiarVista(ContratoController.VerContratos());
+		menuPrincipal.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}// fin
 }

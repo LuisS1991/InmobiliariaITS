@@ -1,24 +1,18 @@
 package repositorio;
 
-import java.util.ArrayList;
-import modelo.Usuario;
-import conexion.Conexion;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import conexion.ORM;
+import modelo.Usuario;
 
-public class RepositorioUsuarios {
-	private Conexion conn;
+public class RepositorioUsuarios extends Repositorio {
+	
+	private ORM dateBase;
 	private ArrayList<Usuario> usuarios;
-	private Connection conexion;
-	private Statement st;
-	private ResultSet rs;
-	private PreparedStatement ps;
 
 	public RepositorioUsuarios() {
-		conn = new Conexion();
+		dateBase = new ORM();
 	}
 
 	public Usuario AutenticarUsuario(Usuario usuario) {
@@ -43,15 +37,26 @@ public class RepositorioUsuarios {
 
 	// este metodo se obtien del repositorio de datos
 	public ArrayList<Usuario> ListarUsuarios() {
+		this.dateBase.Select("SELECT * FROM  `Usuario`;", this);
+		this.dateBase.CerrarConexion();
+		return usuarios;
+	}
+
+	public boolean AgregarUsuario(Usuario usu) {
+		String query = "INSERT INTO `Usuario`(`NombreUsuario`, `PassUsuario`, `RolUsuario`) VALUES ("+usu.getNombreUsuario()+","+usu.getPass()+","+usu.getRol()+");";
+		if(this.dateBase.Insert(query) > 0){
+			this.dateBase.CerrarConexion();
+			return true;
+		}
+		else 
+			return false;
+	}//fin
+
+	@Override
+	public void Listar(ResultSet rs) {
 		usuarios = new ArrayList<Usuario>();
 		Usuario usu = null;
-		String query = "SELECT * FROM `Usuario`;";
-
 		try {
-			conexion = conn.GetConexion();
-			st = conexion.createStatement();
-			rs = st.executeQuery(query);
-
 			while (rs.next()) {
 				usu = new Usuario();
 				usu.setNombreUsuario(rs.getString("NombreUsuario"));
@@ -59,37 +64,11 @@ public class RepositorioUsuarios {
 				usu.setRol(Integer.parseInt(rs.getString("RolUsuario")));
 				usuarios.add(usu);
 			}
-			st.close();
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			conn.CerrarConexion();
-		}
+		} 
 
-		return usuarios;
-	}
-
-	public boolean AgregarUsuario(Usuario usu) {
-
-		String query = "INSERT INTO `Usuario`(`NombreUsuario`, `PassUsuario`, `RolUsuario`) VALUES (?,?,?);";
-		try {
-			conexion = conn.GetConexion();
-			ps = conexion.prepareStatement(query);
-			ps.setString(1, usu.getNombreUsuario());
-			ps.setString(2, usu.getPass());
-			ps.setInt(3, usu.getRol());
-			ps.executeUpdate();
-			ps.close();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			conn.CerrarConexion();
-		}
-
-	}
+	}// fin
 
 }

@@ -30,7 +30,7 @@ public class ListarClientes extends JPanel {
 		setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 64, 801, 473);
+		scrollPane.setBounds(10, 64, 801, 415);
 		add(scrollPane);
 
 		tableUsuarios = new JTable();
@@ -39,11 +39,11 @@ public class ListarClientes extends JPanel {
 		JLabel lblNewLabel = new JLabel("Listado de Clientes");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 26));
-		lblNewLabel.setBounds(27, 10, 626, 48);
+		lblNewLabel.setBounds(10, 10, 801, 48);
 		add(lblNewLabel);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 548, 655, 37);
+		panel.setBounds(10, 500, 655, 37);
 		add(panel);
 		panel.setLayout(null);
 
@@ -97,6 +97,7 @@ public class ListarClientes extends JPanel {
 		for (Cliente cliente : clientes) {
 			if (ci == cliente.getCI()) {
 				ClienteController.EditarClienteNuevo(cliente);
+				return;
 			}
 		}
 	}// fin metodo

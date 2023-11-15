@@ -16,13 +16,14 @@ public class UsuariosController {
 	}
 
 	public static void GuardarUsuarios(String nombreUsuario, String pass, String repitePass, int rol) {
-		boolean resultado = repoUsuarios.AgregarUsuario(new Usuario(nombreUsuario, pass, rol));
+		Usuario u = new Usuario(nombreUsuario, pass, rol);
+		boolean resultado = repoUsuarios.AgregarUsuario(u);
 		if (resultado == true) {
-			JOptionPane.showInternalMessageDialog(null, "Usuario Guardado Correctamente", "Mensaje",
+			JOptionPane.showMessageDialog(null, "Usuario Guardado Correctamente", "Mensaje",
 					JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showInternalMessageDialog(null, "Error al gurdar los datos", "Alerta",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error al gurdar los datos", "Alerta",JOptionPane.WARNING_MESSAGE);
+			
 		}
 	}
 

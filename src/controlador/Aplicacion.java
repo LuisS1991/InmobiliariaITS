@@ -16,7 +16,7 @@ public class Aplicacion {
 	public static HashMap<String, String> configApp;
 
 	public Aplicacion() {
-		usuarioActual = new Usuario("Luis Nantes", "123", 0);
+		usuarioActual = new Usuario("Luis Nantes", "123", 2);
 		configApp = CargarConfiguracion.LoadConfigApp();
 		ventana = new VentanaPpl();
 		ventana.setLocationRelativeTo(null);

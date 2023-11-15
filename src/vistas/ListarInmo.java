@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Inmueble;
+import controlador.Aplicacion;
 import controlador.InmuebleController;
 import modelo.Habitable;
 import modelo.Terreno;
@@ -107,18 +108,18 @@ public class ListarInmo extends JPanel {
 		panel.add(tglbtnNewToggleButton);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 469, 908, 53);
+		panel_1.setBounds(0, 473, 918, 53);
 		add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnNewButton = new JButton("Actualizar Inmueble");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnActualizar = new JButton("Actualizar Inmueble");
+		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actualizarInmueble();
 			}
 		});
-		btnNewButton.setBounds(10, 10, 170, 33);
-		panel_1.add(btnNewButton);
+		btnActualizar.setBounds(10, 10, 170, 33);
+		panel_1.add(btnActualizar);
 
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
@@ -127,8 +128,10 @@ public class ListarInmo extends JPanel {
 			}
 		});
 		btnEliminar.setBounds(221, 10, 170, 33);
-		panel_1.add(btnEliminar);
-
+		
+		if (Aplicacion.getUsuarioActual().getRol() == 0 || Aplicacion.getUsuarioActual().getRol() == 1) {
+			panel_1.add(btnEliminar);
+		}
 		cargarHabitables();
 		cargarTerrenos();
 	}// CTOR
@@ -137,7 +140,6 @@ public class ListarInmo extends JPanel {
 		int nroPadron = 0;
 		if (isTerreno) {
 			nroPadron = Integer.parseInt((String) tableTerrenos.getValueAt(tableTerrenos.getSelectedRow(), 1));
-			InmuebleController.eliminarInmo(nroPadron);
 		} else {
 			nroPadron = Integer.parseInt((String) tableHabitables.getValueAt(tableHabitables.getSelectedRow(), 1));
 		}

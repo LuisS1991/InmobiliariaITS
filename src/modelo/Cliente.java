@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import enumeracion.TipoClientes;
 
@@ -82,15 +83,35 @@ public class Cliente {
 	}
 
 	public String toStringTipoCliente(int i) {
-		String nombre = "";
-
 		if (TipoClientes.Dueño.getTipoCliente() == i) {
-			nombre = TipoClientes.Dueño.name();
+			return TipoClientes.Dueño.name();
 		} else if (TipoClientes.Comprador.getTipoCliente() == i) {
-			nombre = TipoClientes.Comprador.name();
+			return  TipoClientes.Comprador.name();
 		} else {
-			nombre = TipoClientes.Alquiler.name();
+			return  TipoClientes.Alquiler.name();
 		}
-		return nombre;
+	}//fin
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(CI, Email, FechaNac, ListInmuebles, NombreCompleto, Telefono, tipoCliente);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return CI == other.CI && Objects.equals(Email, other.Email) && Objects.equals(FechaNac, other.FechaNac)
+				&& Objects.equals(ListInmuebles, other.ListInmuebles)
+				&& Objects.equals(NombreCompleto, other.NombreCompleto) && Telefono == other.Telefono
+				&& tipoCliente == other.tipoCliente;
+	}//fin
+	
+	
+	
 }

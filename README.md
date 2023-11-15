@@ -21,8 +21,7 @@ asi como una forma de tener la logica del negocio separada y desacopladad del in
 * Vista de Usuarios
 * Vista de Clientes
 * Vistas Inmubles
-* Formulario Contratos
-* 
+  
 # Funciones Finalizadas
 * Agregar Usuarios
 * Listar Clientes

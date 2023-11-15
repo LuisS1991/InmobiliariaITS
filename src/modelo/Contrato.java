@@ -1,80 +1,115 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
+import enumeracion.TipoContrato;
 
 public class Contrato {
 
 	private int NroContrato;
-	private int Autorizacion;
+	private int Autorizacion = 0;
 	private String Descripcion;
 	private double Precio;
-	private String Tipo;
+	private int Tipo;
 	private String Garantia;
-	private Date FechaInicio;
-	private Date FechaFin;
+	private String FechaInicio;
+	private String FechaFin;
+	private Cliente Cliente;
 	private ArrayList<Inmueble> ListInmuebles;
-	
-	
-	
+
 	public int getNroContrato() {
 		return NroContrato;
 	}
+
 	public void setNroContrato(int nroContrato) {
 		NroContrato = nroContrato;
 	}
+
 	public int getAutorizacion() {
 		return Autorizacion;
 	}
+
 	public void setAutorizacion(int autorizacion) {
 		Autorizacion = autorizacion;
 	}
+
 	public String getDescripcion() {
 		return Descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
+
 	public double getPrecio() {
 		return Precio;
 	}
+
 	public void setPrecio(double precio) {
 		Precio = precio;
 	}
-	public String getTipo() {
+
+	public int getTipo() {
 		return Tipo;
 	}
-	public void setTipo(String tipo) {
+
+	public void setTipo(int tipo) {
 		Tipo = tipo;
 	}
+
 	public String getGarantia() {
 		return Garantia;
 	}
+
 	public void setGarantia(String garantia) {
 		Garantia = garantia;
 	}
-	public Date getFechaInicio() {
+
+	public String getFechaInicio() {
 		return FechaInicio;
 	}
-	public void setFechaInicio(Date fechaInicio) {
+
+	public void setFechaInicio(String fechaInicio) {
 		FechaInicio = fechaInicio;
 	}
-	public Date getFechaFin() {
+
+	public String getFechaFin() {
 		return FechaFin;
 	}
-	public void setFechaFin(Date fechaFin) {
+
+	public void setFechaFin(String fechaFin) {
 		FechaFin = fechaFin;
 	}
+
 	public ArrayList<Inmueble> getListInmuebles() {
 		return ListInmuebles;
 	}
+
 	public void setListInmuebles(ArrayList<Inmueble> listInmuebles) {
 		ListInmuebles = listInmuebles;
 	}
 
-	
-	
-	
-	
+	public Cliente getCliente() {
+		return Cliente;
+	}
 
+	public void setCliente(Cliente cli) {
+		Cliente = cli;
+	}
+	
+	public String toStringTipoCliente() {
+		if (TipoContrato.Compra.getIndex() == this.getTipo()) {
+			return TipoContrato.Compra.name();
+		} else if (TipoContrato.Venta.getIndex() == this.getTipo()) {
+			return  TipoContrato.Venta.name();
+		} else {
+			return  TipoContrato.Alquiler.name();
+		}
+	}//fin
+
+	public String toStringAutorizacion() {
+		if(this.getAutorizacion() !=0) {
+			return "SI";
+		}
+		return "NO";
+	}
 }

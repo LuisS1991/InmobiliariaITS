@@ -103,7 +103,7 @@ public class RepositorioCliente {
 	}// fin metodo
 
 	public boolean EliminarCliente(int ci) {
-		String query = "DELETE FROM `cliente`WHERE `CI`=" + ci + ";";
+		String query = "DELETE FROM `cliente` WHERE `CI`=" + ci + ";";
 		try {
 			conexion = conn.GetConexion();
 			ps = conexion.prepareStatement(query);
@@ -120,8 +120,7 @@ public class RepositorioCliente {
 	}
 
 	public Cliente BuscarCliente(int ci) {
-		String query = "SELECT * FROM `Cliente` CI=" + ci + " ;";
-
+		String query = "SELECT * FROM `Cliente` WHERE `CI`=" + ci + ";";
 		try {
 			conexion = conn.GetConexion();
 			st = conexion.createStatement();

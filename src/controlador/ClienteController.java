@@ -18,7 +18,7 @@ public class ClienteController {
 	public static void GuardarCliente(String cedula, String nombreCompleto, String email, String telefono,
 			String fechaNac, int tipoCliente) {
 		repoCliente = new RepositorioCliente();
-		// telefono.matches("^[+-]?[0-9]+[.]?+[0-9]+|[+-]?[0-9]+")
+
 		if (ValidarEntradas.ValidarEntreadaNumerica(cedula) && cedula.length() == 8
 				&& ValidarEntradas.ValidarEntreadaNumerica(telefono)) {
 			if (ValidarEntradas.ValidarEntreadaEmail(email)) {

@@ -239,4 +239,6 @@ public class Clientes extends JDialog {
 		dateFechaNac.setDate(Date.from(Instant.now()));
 	}
 
+	
+	
 }

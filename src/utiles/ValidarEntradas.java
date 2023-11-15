@@ -22,5 +22,12 @@ public class ValidarEntradas {
 		}
 		return false;
 	}// fin metodo
+	
+	public static boolean ValidarEsVacio(String texto) {
+		if (texto.isEmpty()) {
+			return true;
+		}
+		return false;
+	}//fin metodo
 
 }

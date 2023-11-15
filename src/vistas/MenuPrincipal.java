@@ -121,7 +121,7 @@ public class MenuPrincipal extends JPanel {
 		subMenuContrato = new JPanel();
 		subMenuContrato.setLayout(null);
 		subMenuContrato.setBackground(new Color(174, 174, 174));
-		subMenuContrato.setBounds(12, 249, 130, 0);
+		subMenuContrato.setBounds(12, 247, 130, 0);
 		PMenuLateral.add(subMenuContrato);
 		
 		JButton btnNuevoContrato = new JButton("Nuevo");
@@ -136,7 +136,7 @@ public class MenuPrincipal extends JPanel {
 		JButton btnListarContrato = new JButton("Listar");
 		btnListarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ContratoController.FormAltaContrato();
+				MenuPrincipalController.ListarContrato();
 			}
 		});
 		btnListarContrato.setBounds(21, 45, 85, 21);
@@ -202,7 +202,6 @@ public class MenuPrincipal extends JPanel {
 		panelVistas.removeAll();
 		panel.setBounds(0, 0, panelVistas.getBounds().width, panelVistas.getBounds().height);
 		panelVistas.add(panel);
-		panelVistas.revalidate();
 		panelVistas.repaint();
 	}
 
