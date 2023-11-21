@@ -6,11 +6,11 @@ public class Inmueble {
 	private String Calle;
 	private int NroPuerta;
 	private String Departamento;
-	private double Valor;
+	private float Valor;
 	private double Tamanio; // metros cuadrados
-	private Cliente Cliente;
+	private Cliente ClienteDuenio;
 
-	public Inmueble(int nroPadron, String calle, int nroPuerta, String dpto, double valor, double tamaño, Cliente cli) {
+	public Inmueble(int nroPadron, String calle, int nroPuerta, String dpto, float valor, double tamaño, Cliente cli) {
 		super();
 		NroPadron = nroPadron;
 		Calle = calle;
@@ -18,19 +18,19 @@ public class Inmueble {
 		NroPuerta = nroPuerta;
 		Valor = valor;
 		Tamanio = tamaño;
-		Cliente = cli;
+		ClienteDuenio = cli;
 	}
 
 	public Inmueble() {
 
 	}
 
-	public Cliente getCliente() {
-		return this.Cliente;
+	public Cliente getClienteDuenio() {
+		return this.ClienteDuenio;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.Cliente = cliente;
+	public void setClienteDuenio(Cliente cliente) {
+		this.ClienteDuenio = cliente;
 	}
 
 	public int getNroPadron() {
@@ -57,11 +57,11 @@ public class Inmueble {
 		NroPuerta = nroPuerta;
 	}
 
-	public double getValor() {
+	public float getValor() {
 		return Valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(float valor) {
 		Valor = valor;
 	}
 

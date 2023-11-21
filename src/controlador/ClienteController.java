@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Cliente;
+import modelo.Contrato;
 import repositorio.RepositorioCliente;
 import utiles.ValidarEntradas;
 import vistas.Clientes;
@@ -31,6 +32,7 @@ public class ClienteController {
 				cliente.setTipoCliente(tipoCliente);
 				if (repoCliente.GuardarCliente(cliente)) {
 					JOptionPane.showMessageDialog(null, "cliente guardado correctamente");
+					MenuPrincipalController.VerListadoClientes();
 				} else {
 					JOptionPane.showMessageDialog(null, "el usuario ya existe");
 				}
@@ -71,21 +73,41 @@ public class ClienteController {
 			JOptionPane.showMessageDialog(null,
 					"el numero de cedula no puede ser mayor de 8 digitos y deben ser numeros");
 		}
-
 	}// fin metodo
 
 	public static void EliminarCliente(int ci) {
 		repoCliente = new RepositorioCliente();
 		int a = JOptionPane.showConfirmDialog(null, "Estas seguro?");
 		if (a == JOptionPane.YES_OPTION) {
-			if (repoCliente.EliminarCliente(ci)) {
-				JOptionPane.showMessageDialog(null, "cliente eliminado correctamente");
-				MenuPrincipalController.VerListadoClientes();
+			Contrato cont = ContratoController.BuscarContratoCliente("SELECT * FROM contrato WHERE clienteComplen="+ci+";");
+			if (cont != null && cont.getClienteComplementario().getCI() == ci) {
+				JOptionPane.showInternalMessageDialog(null,"No puede Eliminar un cliente que posee un contrato","alerta",0,null);
 			} else {
-				JOptionPane.showMessageDialog(null, "error al eliminar el cliente");
+				if (repoCliente.EliminarCliente(ci)) {
+					JOptionPane.showMessageDialog(null, "cliente eliminado correctamente");
+					MenuPrincipalController.VerListadoClientes();
+				} else {
+					JOptionPane.showMessageDialog(null, "error al eliminar el cliente");
+				}
 			}
 		}
 	}// fin metodo
+
+	public static Cliente Buscar(String Cedula) {
+		if (Cedula.isEmpty()) {
+			JOptionPane.showMessageDialog(VistaCliente, "el campo cedula no puede se vacio", "alerta", 0, null);
+		} else {
+			if (ValidarEntradas.ValidarEntreadaNumerica(Cedula)) {
+				repoCliente = new RepositorioCliente();
+				Cliente cli = repoCliente.BuscarCliente(Integer.parseInt(Cedula));
+				return cli;
+			} else {
+				JOptionPane.showMessageDialog(VistaCliente, "debe ingresar una cedula valida", "alerta", 0, null);
+			}
+		}
+
+		return null;
+	}// fin
 
 	// VISTAS
 	public static void VerAddClienteNuevo() {

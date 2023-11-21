@@ -12,7 +12,7 @@ import modelo.Inmueble;
 import modelo.Terreno;
 import modelo.Cliente;
 
-public class RepositorioInmo {
+public class RepositorioInmo extends Repositorio {
 	private Conexion conn;
 	private Connection conexion;
 	private Statement st;
@@ -26,10 +26,7 @@ public class RepositorioInmo {
 	public ArrayList<Habitable> TodosHabitables() {
 		ArrayList<Habitable> hab = new ArrayList<Habitable>();
 		Habitable terr = null;
-		// String query = "SELECT i.`NroPadron`, i.`calle`, i.`nroPuerta`,
-		// i.`departamento`, i.`valor`, i.`tamano`, i.`cliente`,t.servicios FROM
-		// `Inmueble` i INNER JOIN `Terreno` t on t.NroPadron = i.NroPadron";
-		String query = "SELECT i.`NroPadron`, i.`calle`, i.`nroPuerta`, i.`departamento`, i.`valor`, i.`tamanio`,i.cliente,h.`CantCuarto`, h.`CantBano`, h.`OtrosHabitaciones`, h.`comodidades`, h.`tipo`"
+		String query = "SELECT i.`NroPadron`, i.`calle`, i.`nroPuerta`, i.`departamento`, i.`valor`, i.`tamanio`,i.clienteDuenio,h.`CantCuarto`, h.`CantBano`, h.`OtrosHabitaciones`, h.`comodidades`, h.`tipo`"
 				+ "FROM `Inmueble` i  INNER JOIN `Habitable` h on h.NroPadron = i.NroPadron;";
 		try {
 			conexion = conn.GetConexion();
@@ -42,11 +39,11 @@ public class RepositorioInmo {
 				terr.setCalle(rs.getString("calle"));
 				terr.setNroPuerta(Integer.parseInt(rs.getString("NroPadron")));
 				terr.setDepartamento(rs.getString("departamento"));
-				terr.setValor(Double.parseDouble(rs.getString("valor")));
+				terr.setValor(Float.parseFloat(rs.getString("valor")));
 				terr.setTamanio(Double.parseDouble(rs.getString("tamanio")));
 				Cliente cli = new Cliente();
-				cli.setCI(Integer.parseInt(rs.getString("cliente")));
-				terr.setCliente(cli);
+				cli.setCI(Integer.parseInt(rs.getString("clienteDuenio")));
+				terr.setClienteDuenio(cli);
 				terr.setCantidad_Banos(Integer.parseInt(rs.getString("CantBano")));
 				terr.setCantidad_Cuartos(Integer.parseInt(rs.getString("CantCuarto")));
 				terr.setOtrasHabitaciones(Integer.parseInt(rs.getString("OtrosHabitaciones")));
@@ -69,7 +66,7 @@ public class RepositorioInmo {
 	public ArrayList<Terreno> TodosTerrenos() {
 		ArrayList<Terreno> terrenos = new ArrayList<Terreno>();
 		Terreno terr = null;
-		String query = "SELECT i.`NroPadron`, i.`calle`, i.`nroPuerta`, i.`departamento`, i.`valor`, i.`tamanio`,i.cliente,t.servicios"
+		String query = "SELECT i.`NroPadron`, i.`calle`, i.`nroPuerta`, i.`departamento`, i.`valor`, i.`tamanio`,i.clienteDuenio,t.servicios"
 				+ " FROM `Inmueble` i INNER JOIN `Terreno` t on t.NroPadron = i.NroPadron;";
 
 		try {
@@ -83,12 +80,12 @@ public class RepositorioInmo {
 				terr.setCalle(rs.getString("calle"));
 				terr.setNroPuerta(Integer.parseInt(rs.getString("nroPuerta")));
 				terr.setDepartamento(rs.getString("departamento"));
-				terr.setValor(Double.parseDouble(rs.getString("valor")));
+				terr.setValor(Float.parseFloat(rs.getString("valor")));
 				terr.setTamanio(Double.parseDouble(rs.getString("tamanio")));
 				terr.setServicios(rs.getString("servicios"));
 				Cliente cli = new Cliente();
-				cli.setCI(Integer.parseInt(rs.getString("cliente")));
-				terr.setCliente(cli);
+				cli.setCI(Integer.parseInt(rs.getString("clienteDuenio")));
+				terr.setClienteDuenio(cli);
 				terrenos.add(terr);
 			}
 			st.close();
@@ -104,10 +101,10 @@ public class RepositorioInmo {
 
 	public boolean GuardarTerreno(Terreno terreno) {
 
-		String queryInmo = "INSERT INTO `Inmueble`(`NroPadron`, `calle`, `nroPuerta`, `departamento`, `valor`, `tamanio`, `cliente`)"
+		String queryInmo = "INSERT INTO `Inmueble`(`NroPadron`, `calle`, `nroPuerta`, `departamento`, `valor`, `tamanio`, `clienteDuenio`)"
 				+ "VALUES (" + terreno.getNroPadron() + ",'" + terreno.getCalle() + "'," + terreno.getNroPuerta() + ",'"
 				+ terreno.getDepartamento() + "'," + terreno.getValor() + "," + terreno.getTamanio() + ","
-				+ terreno.getCliente().getCI() + ");";
+				+ terreno.getClienteDuenio().getCI() + ");";
 		String queryTerreno = "INSERT INTO `Terreno`(`NroPadron`, `servicios`) VALUES (" + terreno.getNroPadron() + ",'"
 				+ terreno.getServicios() + "');";
 
@@ -129,10 +126,10 @@ public class RepositorioInmo {
 	}// fin
 
 	public boolean GuardarHabitable(Habitable habitable) {
-		String queryInmo = "INSERT INTO `Inmueble`(`NroPadron`, `calle`, `nroPuerta`, `departamento`, `valor`, `tamanio`, `cliente`)"
+		String queryInmo = "INSERT INTO `Inmueble`(`NroPadron`, `calle`, `nroPuerta`, `departamento`, `valor`, `tamanio`, `clienteDuenio`)"
 				+ "VALUES (" + habitable.getNroPadron() + ",'" + habitable.getCalle() + "'," + habitable.getNroPuerta()
 				+ ",'" + habitable.getDepartamento() + "'," + habitable.getValor() + "," + habitable.getTamanio() + ","
-				+ habitable.getCliente().getCI() + ");";
+				+ habitable.getClienteDuenio().getCI() + ");";
 		String queryTerreno = "INSERT INTO `Habitable`(`NroPadron`, `CantCuarto`, `CantBano`, `OtrosHabitaciones`, `comodidades`, `tipo`)"
 				+ "VALUES (" + habitable.getNroPadron() + "," + habitable.getCantidad_Cuartos() + ","
 				+ habitable.getCantidad_Banos() + "," + habitable.getOtrasHabitaciones() + ",'"
@@ -159,8 +156,8 @@ public class RepositorioInmo {
 		String query = "";
 		String queryInmo = "UPDATE `inmueble` SET `calle`='" + inmo.getCalle() + "', `nroPuerta`=" + inmo.getNroPuerta()
 				+ ",`valor` =" + inmo.getValor() + ",`tamanio`=" + inmo.getTamanio() + ",`departamento`='"
-				+ inmo.getDepartamento() + "'" + ",`cliente`=" + inmo.getCliente().getCI() + " WHERE `NroPadron`="
-				+ inmo.getNroPadron() + ";";
+				+ inmo.getDepartamento() + "'" + ",`clienteDuenio`=" + inmo.getClienteDuenio().getCI()
+				+ " WHERE `NroPadron`=" + inmo.getNroPadron() + ";";
 
 		if (inmo.getClass().toString().equals("class modelo.Terreno")) {
 			Terreno terr = (Terreno) inmo;
@@ -195,12 +192,13 @@ public class RepositorioInmo {
 
 		try {
 			conexion = conn.GetConexion();
-			ps = conexion.prepareStatement("DELETE FROM  `terreno` WHERE  `NroPadron` ="+NroPadron+";");
+			ps = conexion.prepareStatement("DELETE FROM  `terreno` WHERE  `NroPadron` =" + NroPadron + ";");
 			if (ps.executeUpdate() < 0) {
-				ps = conexion.prepareStatement("DELETE FROM `habitable WHERE  `NroPadron` ="+NroPadron+";");
+				ps = conexion.prepareStatement("DELETE FROM `habitable WHERE  `NroPadron` =" + NroPadron + ";");
 				ps.executeUpdate();
 			}
-			ps = conexion.prepareStatement("DELETE FROM `inmobiliariaits`.`inmueble` WHERE `NroPadron` = "+NroPadron+";");
+			ps = conexion.prepareStatement(
+					"DELETE FROM `inmobiliariaits`.`inmueble` WHERE `NroPadron` = " + NroPadron + ";");
 			ps.executeUpdate();
 			ps.close();
 			return true;
@@ -211,6 +209,41 @@ public class RepositorioInmo {
 		}
 		return false;
 
+	}
+
+	public Inmueble Buscar(String nroPadron) {
+		String query = "SELECT  * FROM  `inmueble` WHERE `NroPadron` = " + nroPadron + ";";
+		Inmueble inmo = null;
+		try {
+			conexion = conn.GetConexion();
+			st = conexion.createStatement();
+			rs = st.executeQuery(query);
+
+			if (rs.next()) {
+				inmo = new Inmueble();
+				inmo.setNroPadron(Integer.parseInt(rs.getString("NroPadron")));
+				inmo.setCalle(rs.getString("calle"));
+				inmo.setNroPuerta(Integer.parseInt(rs.getString("nroPuerta")));
+				inmo.setValor(Float.parseFloat(rs.getString("valor")));
+				inmo.setTamanio(Double.parseDouble(rs.getString("tamanio")));
+				inmo.setDepartamento(rs.getString("departamento"));
+				Cliente duenio = new Cliente();
+				duenio.setCI(Integer.parseInt(rs.getString("clienteDuenio")));
+				inmo.setClienteDuenio(duenio);
+			}
+			st.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			conn.CerrarConexion();
+		}
+		return inmo;
+	}
+
+	@Override
+	public void Listar(ResultSet rs) {
 	}
 
 }// fin

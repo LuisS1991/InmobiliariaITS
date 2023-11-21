@@ -6,5 +6,5 @@ public abstract class Repositorio {
  
 	public abstract void Listar(ResultSet rs);
 
-
+	
 }

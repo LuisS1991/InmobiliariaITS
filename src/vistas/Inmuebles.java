@@ -2,37 +2,38 @@ package vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import controlador.ClienteController;
 import controlador.InmuebleController;
 import modelo.Cliente;
-import modelo.Inmueble;
 import modelo.Habitable;
+import modelo.Inmueble;
 import modelo.Terreno;
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class Inmuebles extends JDialog {
 	private Inmueble imno = null;
-	private ArrayList<Cliente> clientes;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNroPadron;
 	private JTextField txtCaller;
@@ -44,8 +45,6 @@ public class Inmuebles extends JDialog {
 	private JPanel panelHabitable;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbTipoInmo;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cbClientes;
 	private JPanel panelTerreno;
 	private boolean isTerreno = false;
 	@SuppressWarnings("rawtypes")
@@ -58,17 +57,20 @@ public class Inmuebles extends JDialog {
 	private JTextArea textAreaComodidades;
 	private JButton btnActualizar;
 	private JButton btnGuardar;
+	private JTextField txtClienteDuenio;
+	private Cliente cli;
+	private JButton btnBuscarCliente;
+	private JLabel lblNombreCliente;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Inmuebles(VentanaPpl ventana, boolean modal, ArrayList<Cliente> lista, Inmueble imno) {
+	public Inmuebles(VentanaPpl ventana, boolean modal, Inmueble imno) {
 		super(ventana, modal);
 		this.imno = imno;
-		this.clientes = lista;
 
 		// CONTROLES INTERFAZ USUARIO
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Inmuebles.class.getResource("/imagenes/casaIcon.png")));
 		setTitle("Agregar Nuevo Inmueble");
-		setBounds(100, 100, 649, 552);
+		setBounds(100, 100, 632, 552);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -129,12 +131,6 @@ public class Inmuebles extends JDialog {
 			lblCliente.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			lblCliente.setBounds(287, 29, 85, 33);
 			contentPanel.add(lblCliente);
-		}
-		{
-			cbClientes = new JComboBox();
-			cbClientes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-			cbClientes.setBounds(379, 30, 170, 33);
-			contentPanel.add(cbClientes);
 		}
 		{
 			txtValor = new JTextField();
@@ -242,7 +238,8 @@ public class Inmuebles extends JDialog {
 					panel_1.setLayout(null);
 
 					cbTipoHabitable = new JComboBox();
-					cbTipoHabitable.setModel(new DefaultComboBoxModel(new String[] { "Casa", "Apartamento","Mejora" }));
+					cbTipoHabitable
+							.setModel(new DefaultComboBoxModel(new String[] { "Casa", "Apartamento", "Mejora" }));
 					cbTipoHabitable.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 					cbTipoHabitable.setBounds(122, 20, 170, 33);
 					panel_1.add(cbTipoHabitable);
@@ -318,7 +315,7 @@ public class Inmuebles extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(10, 472, 615, 33);
+			buttonPane.setBounds(10, 472, 632, 33);
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
@@ -343,7 +340,7 @@ public class Inmuebles extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
-			
+
 			btnActualizar = new JButton("Actualizar");
 			btnActualizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -355,24 +352,57 @@ public class Inmuebles extends JDialog {
 			btnActualizar.setVisible(false);
 			buttonPane.add(btnActualizar);
 		}
-		cargarClientes();
+
+		txtClienteDuenio = new JTextField();
+		txtClienteDuenio.setBounds(379, 31, 170, 33);
+		contentPanel.add(txtClienteDuenio);
+		txtClienteDuenio.setColumns(10);
+
+		btnBuscarCliente = new JButton("");
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarCliente();
+			}
+		});
+		btnBuscarCliente.setToolTipText("Busar Cliente");
+		btnBuscarCliente.setIcon(new ImageIcon(Inmuebles.class.getResource("/imagenes/person_search.png")));
+		btnBuscarCliente.setBounds(562, 34, 24, 24);
+		contentPanel.add(btnBuscarCliente);
+		
+		lblNombreCliente = new JLabel("");
+		lblNombreCliente.setBounds(379, 10, 171, 23);
+		contentPanel.add(lblNombreCliente);
+
 		if (this.imno != null) {
 			cargarImno();
 		}
 	}// ctor
-	
+
+	private void buscarCliente() {
+		this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		cli = ClienteController.Buscar(txtClienteDuenio.getText());
+		if (cli != null) {
+			lblNombreCliente.setText(cli.getNombreCompleto());
+			txtClienteDuenio.setText(String.valueOf(cli.getCI()));
+			btnBuscarCliente.setIcon(new ImageIcon(Inmuebles.class.getResource("/imagenes/search_check.png")));
+		}else {
+			JOptionPane.showMessageDialog(this, "Usuario no encontrado", "alerta", 0, null);
+		}
+		this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}//fin
+
 	private void guardarInmo() {
-		
+
 		InmuebleController.guardarInmo(txtNroPadron.getText(), txtCaller.getText(), txtNroCalle.getText(),
 				(String) cbDepto.getSelectedItem(), txtValor.getText(), txtTamanioInmo.getText(),
-				obtenerCliente(cbClientes.getSelectedIndex()), (int) sCantidadBanios.getValue(),
-				(int) sCantCuartos.getValue(), (int) sOtrasHabit.getValue(), textAreaComodidades.getText(),
-				(String) cbTipoHabitable.getSelectedItem(), taServicios.getText(), isTerreno);
+				 cli, (int) sCantidadBanios.getValue(), (int) sCantCuartos.getValue(),
+				(int) sOtrasHabit.getValue(), textAreaComodidades.getText(), (String) cbTipoHabitable.getSelectedItem(),
+				taServicios.getText(), isTerreno);
 		limpiar();
 		this.dispose();
 
 	}// fin metodo
-	
+
 	private void actualizarInmo() {
 
 		// String nroPadron,String calle,String nroPuerta,String dpto,String
@@ -382,13 +412,13 @@ public class Inmuebles extends JDialog {
 
 		InmuebleController.actualizarDatosInmo(txtNroPadron.getText(), txtCaller.getText(), txtNroCalle.getText(),
 				(String) cbDepto.getSelectedItem(), txtValor.getText(), txtTamanioInmo.getText(),
-				obtenerCliente(cbClientes.getSelectedIndex()), (int) sCantidadBanios.getValue(),
-				(int) sCantCuartos.getValue(), (int) sOtrasHabit.getValue(), textAreaComodidades.getText(),
-				(String) cbTipoHabitable.getSelectedItem(), taServicios.getText(), isTerreno);
+				 cli, (int) sCantidadBanios.getValue(), (int) sCantCuartos.getValue(),
+				(int) sOtrasHabit.getValue(), textAreaComodidades.getText(), (String) cbTipoHabitable.getSelectedItem(),
+				taServicios.getText(), isTerreno);
 		limpiar();
 		this.dispose();
 	}// fin metodo
-	
+
 	private void limpiar() {
 		txtNroPadron.setText("");
 		txtCaller.setText("");
@@ -397,19 +427,14 @@ public class Inmuebles extends JDialog {
 		txtTamanioInmo.setText("");
 		txtAddServicio.setText("");
 		taServicios.setText("");
-		cbClientes.setSelectedIndex(0);
 		textAreaComodidades.setText("");
 		cbTipoHabitable.setSelectedIndex(0);
-		cbClientes.setSelectedIndex(0);
+		txtClienteDuenio.setText("");
 		sCantidadBanios.setValue(0);
 		sOtrasHabit.setValue(0);
 		sCantCuartos.setValue(0);
 		textAreaComodidades.append("");
 	}
-
-	private Cliente obtenerCliente(int index) {
-		return this.clientes.get(index);
-	}// fin emtodo
 
 	private void cerrar() {
 		this.dispose();
@@ -424,31 +449,20 @@ public class Inmuebles extends JDialog {
 		}
 	}// fin metodo
 
-	@SuppressWarnings("unchecked")
-	private void cargarClientes() {
-		for (Cliente cliente : clientes) {
-			cbClientes.addItem(cliente.getNombreCompleto());
-		}
-	}// fin metodo
-
 	private void cargarImno() {
+		cli = this.imno.getClienteDuenio();
 		txtNroPadron.setText(String.valueOf(this.imno.getNroPadron()));
 		txtNroPadron.setEnabled(isTerreno);
 		txtCaller.setText(this.imno.getCalle());
 		txtNroCalle.setText(String.valueOf(this.imno.getNroPuerta()));
 		txtValor.setText(String.valueOf(this.imno.getValor()));
 		txtTamanioInmo.setText(String.valueOf(this.imno.getTamanio()));
-		for (Cliente cliente : clientes) {
-			if (cliente.getCI() == this.imno.getCliente().getCI()) {
-				cbClientes.setSelectedIndex(this.clientes.indexOf(cliente));
-			}
-		} // fin
+		txtClienteDuenio.setText(String.valueOf(this.imno.getClienteDuenio().getCI()));
 		for (int i = 0; i < cbDepto.getModel().getSize(); i++) {
 			if (cbDepto.getModel().getElementAt(i).equals(this.imno.getDepartamento())) {
 				cbDepto.setSelectedIndex(i);
 			}
 		} // fin
-
 		if (this.imno.getClass().toString().equals("class modelo.Terreno")) {
 			cbTipoInmo.setSelectedIndex(1);
 			panelTerreno.setVisible(true);
@@ -458,7 +472,7 @@ public class Inmuebles extends JDialog {
 			taServicios.append(terr.getServicios());
 
 		} else {
-			Habitable hab = (Habitable)this.imno;
+			Habitable hab = (Habitable) this.imno;
 			panelTerreno.setVisible(false);
 			panelHabitable.setVisible(true);
 			isTerreno = false;
@@ -467,9 +481,9 @@ public class Inmuebles extends JDialog {
 			sOtrasHabit.setValue(hab.getOtrasHabitaciones());
 			sCantCuartos.setValue(hab.getCantidad_Cuartos());
 			textAreaComodidades.append(hab.getComodidades());
-			if(hab.getTipo().equals("casa")) {
+			if (hab.getTipo().equals("casa")) {
 				cbTipoHabitable.setSelectedIndex(0);
-			}else {
+			} else {
 				cbTipoHabitable.setSelectedIndex(1);
 			}
 		}

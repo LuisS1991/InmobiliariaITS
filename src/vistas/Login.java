@@ -52,7 +52,7 @@ public class Login extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel_3 = new JLabel("Nombre Usuario:");
+		JLabel lblNewLabel_3 = new JLabel("Ccedula:");
 		lblNewLabel_3.setBounds(54, 67, 114, 19);
 		panel.add(lblNewLabel_3);
 
@@ -82,7 +82,7 @@ public class Login extends JPanel {
 		add(lblNewLabel_2_1);
 		ntmIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Aplicacion.InicioSesion();
+				Aplicacion.InicioSesion(txtNombreUsuario.getText(),txtPass.getText());
 			}
 		});
 

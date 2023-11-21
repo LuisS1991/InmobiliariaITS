@@ -24,6 +24,10 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("unused")
 public class ListarInmo extends JPanel {
@@ -40,19 +44,39 @@ public class ListarInmo extends JPanel {
 	private Object[][] dataTabla = null;
 	private JToggleButton tglbtnNewToggleButton;
 	private boolean isTerreno = false;
+	private JPanel panelSinDatos;
+	private JLabel lblNewLabel_2;
+	private JButton btnActualizar;
+	private JButton btnEliminar;
+	private JLabel lblTitulo;
 
 	public ListarInmo(ArrayList<Terreno> listTerrenos, ArrayList<Habitable> listHabitable) {
 		listadoTerrenos = listTerrenos;
 		listadoHabitable = listHabitable;
 		// GUI
 		setLayout(null);
-		JLabel lblNewLabel = new JLabel("Listado Inmuebles");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 26));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 12, 906, 36);
-		add(lblNewLabel);
+
+		panelSinDatos = new JPanel();
+		panelSinDatos.setBounds(0, 137, 942, 399);
+		add(panelSinDatos);
+		panelSinDatos.setVisible(false);
+		panelSinDatos.setLayout(null);
+		if (listadoHabitable.size() <= 0 || listadoHabitable.size() <= 0) {
+			panelSinDatos.setVisible(true);
+		}
+		lblNewLabel_2 = new JLabel("No hay Datos Cargados al Momento");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(10, 26, 901, 80);
+		panelSinDatos.add(lblNewLabel_2);
+		lblTitulo = new JLabel("Listado Inmuebles");
+		lblTitulo.setFont(new Font("Times New Roman", Font.PLAIN, 26));
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setBounds(12, 12, 906, 36);
+		add(lblTitulo);
 
 		panelTerrenos = new JPanel();
+		panelTerrenos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTerrenos.setLayout(null);
 		panelTerrenos.setBounds(0, 150, 920, 320);
 		panelTerrenos.setVisible(false);
@@ -63,9 +87,17 @@ public class ListarInmo extends JPanel {
 		panelTerrenos.add(scrollPane);
 
 		tableTerrenos = new JTable();
+		tableTerrenos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnActualizar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+			}
+		});
 		scrollPane.setViewportView(tableTerrenos);
 
 		panelHabitables = new JPanel();
+		panelHabitables.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelHabitables.setBounds(0, 150, 920, 320);
 		add(panelHabitables);
 		panelHabitables.setLayout(null);
@@ -75,6 +107,13 @@ public class ListarInmo extends JPanel {
 		panelHabitables.add(scrollPane_1);
 
 		tableHabitables = new JTable();
+		tableHabitables.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnActualizar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+			}
+		});
 		scrollPane_1.setViewportView(tableHabitables);
 
 		panel = new JPanel();
@@ -91,17 +130,37 @@ public class ListarInmo extends JPanel {
 		tglbtnNewToggleButton = new JToggleButton("Habitables");
 		tglbtnNewToggleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnActualizar.setEnabled(false);
+				btnEliminar.setEnabled(false);
 				if (tglbtnNewToggleButton.isSelected()) {
-					tglbtnNewToggleButton.setText("Terrenos");
-					panelHabitables.setVisible(false);
-					panelTerrenos.setVisible(true);
-					isTerreno = true;
+					lblTitulo.setText("Listado Inmuebles Terrenos");
+					if (listadoTerrenos.size() <= 0) {
+						panelSinDatos.setVisible(true);
+						
+						repaint();
+					} else {
+						panelSinDatos.setVisible(false);
+						repaint();
+						tglbtnNewToggleButton.setText("Terrenos");
+						panelHabitables.setVisible(false);
+						panelTerrenos.setVisible(true);
+						isTerreno = true;
+					}
 				} else {
-					tglbtnNewToggleButton.setText("Habitable");
-					panelHabitables.setVisible(true);
-					panelTerrenos.setVisible(false);
-					isTerreno = false;
-				}
+					lblTitulo.setText("Listado Inmuebles Habitables");
+					if (listadoHabitable.size() <= 0) {
+						panelSinDatos.setVisible(true);
+						repaint();
+					} else {
+						panelSinDatos.setVisible(false);
+						repaint();
+						tglbtnNewToggleButton.setText("Habitable");
+						panelHabitables.setVisible(true);
+						panelTerrenos.setVisible(false);
+						isTerreno = false;
+					}
+				} // fin else
+
 			}
 		});
 		tglbtnNewToggleButton.setBounds(147, 13, 170, 33);
@@ -112,7 +171,8 @@ public class ListarInmo extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnActualizar = new JButton("Actualizar Inmueble");
+		btnActualizar = new JButton("Actualizar Inmueble");
+		btnActualizar.setEnabled(false);
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actualizarInmueble();
@@ -121,14 +181,15 @@ public class ListarInmo extends JPanel {
 		btnActualizar.setBounds(10, 10, 170, 33);
 		panel_1.add(btnActualizar);
 
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setEnabled(false);
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eliminarInmueble();
 			}
 		});
 		btnEliminar.setBounds(221, 10, 170, 33);
-		
+
 		if (Aplicacion.getUsuarioActual().getRol() == 0 || Aplicacion.getUsuarioActual().getRol() == 1) {
 			panel_1.add(btnEliminar);
 		}

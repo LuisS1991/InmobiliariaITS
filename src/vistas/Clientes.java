@@ -211,6 +211,7 @@ public class Clientes extends JDialog {
 				txtTelefono.getText(), fnacim, cbTipoDuenio.getSelectedIndex());
 		this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		limpiarCampos();
+		cerraJDialog();
 	}
 
 	private void editarCliente() {

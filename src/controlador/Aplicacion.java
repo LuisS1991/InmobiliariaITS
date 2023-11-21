@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Cursor;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -16,7 +17,6 @@ public class Aplicacion {
 	public static HashMap<String, String> configApp;
 
 	public Aplicacion() {
-		usuarioActual = new Usuario("Luis Nantes", "123", 2);
 		configApp = CargarConfiguracion.LoadConfigApp();
 		ventana = new VentanaPpl();
 		ventana.setLocationRelativeTo(null);
@@ -24,13 +24,17 @@ public class Aplicacion {
 		ventana.CambiarVistaPanel(new Login());
 	}
 
-	public static void InicioSesion() {
-
-		if (UsuariosController.InicioSesion())
-			ventana.CambiarVistaPanel(MenuPrincipalController.ShowMenuPrinciapl());
-		else
-			JOptionPane.showMessageDialog(null, "Credenciales Invalidas", null, 0);
-	}
+	public static void InicioSesion(String cedula, String pass) {
+		ventana.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		usuarioActual = UsuariosController.InicioSesion(cedula, pass);
+		if(usuarioActual !=null) {
+			ventana.CambiarVistaPanel(MenuPrincipalController.ShowMenuPrinciapl());	
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "usuario no encontrado", "Alerta", JOptionPane.WARNING_MESSAGE);
+		}
+		ventana.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}// fin
 
 	public static void CerrarSesion() {
 		System.out.println("Cerrar Session");

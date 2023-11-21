@@ -12,7 +12,7 @@ public class Terreno extends Inmueble {
 		Servicios = servicios;
 	}
 
-	public Terreno(int nroPadron, String calle, int nroPuerta, String dpto, double valor, double tamaño,
+	public Terreno(int nroPadron, String calle, int nroPuerta, String dpto, Float valor, double tamaño,
 			String servicios, Cliente cli) {
 		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
 		Servicios = servicios;

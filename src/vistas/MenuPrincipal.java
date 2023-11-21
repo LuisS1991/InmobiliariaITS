@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JToggleButton;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JPanel {
@@ -28,6 +29,10 @@ public class MenuPrincipal extends JPanel {
 	private JButton btnListarInmuble;
 	private JPanel subMenuInmuble;
 	private JPanel subMenuContrato;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNombre;
 
 	public MenuPrincipal() {
 		setLayout(null);
@@ -41,11 +46,11 @@ public class MenuPrincipal extends JPanel {
 		btnContratos.setName("Contratos");
 		btnContratos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(btnContratos.isSelected()) {
+				if (btnContratos.isSelected()) {
 					btnCliente.setEnabled(false);
 					btnInmuble.setEnabled(false);
 					btnUsuarios.setVisible(false);
-				}else {
+				} else {
 					btnCliente.setEnabled(true);
 					btnInmuble.setEnabled(true);
 					btnUsuarios.setVisible(true);
@@ -58,7 +63,7 @@ public class MenuPrincipal extends JPanel {
 		btnCliente.setName("Clientes");
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (btnCliente.isSelected()) {
 					btnInmuble.setVisible(false);
 					btnContratos.setVisible(false);
@@ -117,13 +122,13 @@ public class MenuPrincipal extends JPanel {
 		});
 		btnListar.setBounds(21, 45, 85, 21);
 		subMenuCliente.add(btnListar);
-		
+
 		subMenuContrato = new JPanel();
 		subMenuContrato.setLayout(null);
 		subMenuContrato.setBackground(new Color(174, 174, 174));
 		subMenuContrato.setBounds(12, 247, 130, 0);
 		PMenuLateral.add(subMenuContrato);
-		
+
 		JButton btnNuevoContrato = new JButton("Nuevo");
 		btnNuevoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,7 +137,7 @@ public class MenuPrincipal extends JPanel {
 		});
 		btnNuevoContrato.setBounds(21, 10, 85, 21);
 		subMenuContrato.add(btnNuevoContrato);
-		
+
 		JButton btnListarContrato = new JButton("Listar");
 		btnListarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,7 +159,10 @@ public class MenuPrincipal extends JPanel {
 		});
 		btnUsuarios.setBounds(12, 269, 130, 37);
 		PMenuLateral.add(btnUsuarios);
-
+		btnUsuarios.setVisible(false);
+		if(Aplicacion.getUsuarioActual().getRol() == 0) {
+			btnUsuarios.setVisible(true);
+		}
 		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,6 +193,29 @@ public class MenuPrincipal extends JPanel {
 		});
 		btnInmuble.setBounds(12, 155, 130, 37);
 		PMenuLateral.add(btnInmuble);
+
+		panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBounds(164, 0, 935, 655);
+		add(panel_1);
+
+		lblNewLabel_1 = new JLabel("BIENVENIDO");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		lblNewLabel_1.setBounds(26, 51, 376, 90);
+		panel_1.add(lblNewLabel_1);
+
+		lblNewLabel_2 = new JLabel("AL SISTEMA DE GESTION INMOBILIARIO");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		lblNewLabel_2.setBounds(61, 283, 788, 90);
+		panel_1.add(lblNewLabel_2);
+
+		lblNombre = new JLabel(Aplicacion.getUsuarioActual().getNombreUsuario());
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		lblNombre.setBounds(504, 51, 311, 90);
+		panel_1.add(lblNombre);
 
 		separator = new JSeparator();
 		separator.setBounds(155, 0, 16, 655);

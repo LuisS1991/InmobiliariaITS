@@ -8,7 +8,7 @@ public class Habitable extends Inmueble {
 	private int OtrasHabitaciones;
 	private String comodidades;
 
-	public Habitable(int nroPadron, String calle, int nroPuerta, String dpto, double valor, double tamaño, Cliente cli,
+	public Habitable(int nroPadron, String calle, int nroPuerta, String dpto, Float valor, double tamaño, Cliente cli,
 			String tipo, int cantidad_Cuartos, int cantidad_Banos, int otrasHabitaciones, String comodidades) {
 		super(nroPadron, calle, nroPuerta, dpto, valor, tamaño, cli);
 		Tipo = tipo;

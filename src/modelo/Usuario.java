@@ -1,7 +1,7 @@
 package modelo;
 
 public class Usuario {
-
+	private int cedula;
 	private String nombreUsuario;
 	private String pass;
 	private int rol;
@@ -10,6 +10,20 @@ public class Usuario {
 	public Usuario() {
 
 	}
+
+	
+	
+	public int getCedula() {
+		return cedula;
+	}
+
+
+
+	public void setCedula(int cedula) {
+		this.cedula = cedula;
+	}
+
+
 
 	public Usuario(String nombreUsuario, String pass, int rol) {
 		this.nombreUsuario = nombreUsuario;

@@ -5,6 +5,8 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.Aplicacion;
 import controlador.ContratoController;
 import modelo.Contrato;
 import java.awt.Color;
@@ -15,6 +17,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class ListarContratos extends JPanel {
@@ -22,12 +26,28 @@ public class ListarContratos extends JPanel {
 	private DefaultTableModel modeloTabla;
 	private Object[][] dataTabla = null;
 	private JTable tablaContratos;
+	private JButton btnActualizar;
+	private JButton btnEliminar;
 	
 	
 	public ListarContratos(ArrayList<Contrato> lista ) {
 		this.contratoList = lista;
-		
 		setLayout(null);
+	
+		JPanel panelSinDatos = new JPanel();
+		panelSinDatos.setBounds(0, 64, 939, 424);
+		add(panelSinDatos);
+		panelSinDatos.setLayout(null);
+		panelSinDatos.setVisible(false);
+		if(this.contratoList.size() <=0) {
+			panelSinDatos.setVisible(true);
+		}
+		JLabel lbl = new JLabel("No Hay Datos Cargados al Momento");
+		lbl.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setBounds(10, 22, 919, 53);
+		panelSinDatos.add(lbl);
+			
 		JPanel panelTabla = new JPanel();
 		panelTabla.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTabla.setBounds(0, 100, 917, 308);
@@ -39,6 +59,13 @@ public class ListarContratos extends JPanel {
 		panelTabla.add(scrollPane);
 		
 		tablaContratos = new JTable();
+		tablaContratos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnActualizar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+			}
+		});
 		scrollPane.setViewportView(tablaContratos);
 		
 		JLabel lblListadoDeContratos = new JLabel("Listado de Contratos");
@@ -52,26 +79,41 @@ public class ListarContratos extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ActualizarRegistro();
 			}
 		});
 		btnActualizar.setBounds(10, 10, 170, 33);
+		btnActualizar.setEnabled(false);
 		panel.add(btnActualizar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EliminarRegistro();
 			}
 		});
 		btnEliminar.setBounds(205, 10, 170, 33);
+		btnEliminar.setEnabled(false);
 		panel.add(btnEliminar);
 		
+		JButton btnContratoOk = new JButton("Autorizar Contrato");
+		btnContratoOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				autorizarContrato();
+			}
+		});
+		btnContratoOk.setEnabled(false);
+		btnContratoOk.setBounds(397, 10, 170, 33);
+		panel.add(btnContratoOk);
+		if(Aplicacion.getUsuarioActual().getRol()!=2) {
+			btnContratoOk.setEnabled(true);
+		}
 		cargarTabla();
-	
+
+		
 	}//ctor
 	
 	private void cargarTabla() {
@@ -110,4 +152,8 @@ public class ListarContratos extends JPanel {
 		ContratoController.EliminarContrato(nroContrato);
 	}//fin
 
+	private void autorizarContrato() {
+		int nroContrato = Integer.parseInt((String) tablaContratos.getValueAt(tablaContratos.getSelectedRow(), 1));	
+		ContratoController.AutorizarContrato(nroContrato);
+	}//fin
 }

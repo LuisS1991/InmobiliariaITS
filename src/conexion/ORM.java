@@ -45,7 +45,7 @@ public class ORM {
 	public int Delete(String query) {
 		return this.modificarBD(query);
 	}// fin
-
+	
 	private int modificarBD(String query) {
 		int resultado = 0;
 		try {

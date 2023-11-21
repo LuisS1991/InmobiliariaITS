@@ -7,7 +7,7 @@ import conexion.ORM;
 import modelo.Usuario;
 
 public class RepositorioUsuarios extends Repositorio {
-	
+
 	private ORM dateBase;
 	private ArrayList<Usuario> usuarios;
 
@@ -15,9 +15,16 @@ public class RepositorioUsuarios extends Repositorio {
 		dateBase = new ORM();
 	}
 
-	public Usuario AutenticarUsuario(Usuario usuario) {
-		return null;
-	}
+	public Usuario AutenticarUsuario(String cedula, String pass) {
+		this.dateBase.Select("SELECT * FROM  `Usuario`  WHERE cedula='" + cedula + "' and PassUsuario =" + pass + " ;",
+				this);
+		this.dateBase.CerrarConexion();
+		if (usuarios.size() > 0) {
+			return usuarios.get(0);
+		} else {
+			return null;
+		}
+	}// fin
 
 	public boolean RegistrarUsuario(Usuario usuario) {
 		return true;
@@ -43,14 +50,14 @@ public class RepositorioUsuarios extends Repositorio {
 	}
 
 	public boolean AgregarUsuario(Usuario usu) {
-		String query = "INSERT INTO `Usuario`(`NombreUsuario`, `PassUsuario`, `RolUsuario`) VALUES ("+usu.getNombreUsuario()+","+usu.getPass()+","+usu.getRol()+");";
-		if(this.dateBase.Insert(query) > 0){
+		String query = "INSERT INTO `Usuario`(`NombreUsuario`, `PassUsuario`, `RolUsuario`) VALUES ('"
+				+ usu.getNombreUsuario() + "','" + usu.getPass() + "'," + usu.getRol() + ");";
+		if (this.dateBase.Insert(query) > 0) {
 			this.dateBase.CerrarConexion();
 			return true;
-		}
-		else 
+		} else
 			return false;
-	}//fin
+	}// fin
 
 	@Override
 	public void Listar(ResultSet rs) {
@@ -67,7 +74,7 @@ public class RepositorioUsuarios extends Repositorio {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 	}// fin
 

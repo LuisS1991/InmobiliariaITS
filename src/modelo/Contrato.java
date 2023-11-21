@@ -13,7 +13,36 @@ public class Contrato {
 	private String Garantia;
 	private String FechaInicio;
 	private String FechaFin;
-	private Cliente Cliente;
+	private Cliente Duenio;
+	private Cliente ClienteComplementario;
+	private int NroPadron;
+	
+	
+	
+	public int getNroPadron() {
+		return NroPadron;
+	}
+
+	public void setNroPadron(int nroPadron) {
+		NroPadron = nroPadron;
+	}
+
+	public Cliente getDuenio() {
+		return Duenio;
+	}
+
+	public void setDuenio(Cliente duenio) {
+		Duenio = duenio;
+	}
+
+	public Cliente getClienteComplementario() {
+		return ClienteComplementario;
+	}
+
+	public void setClienteComplementario(Cliente clienteComplementario) {
+		ClienteComplementario = clienteComplementario;
+	}
+
 	private ArrayList<Inmueble> ListInmuebles;
 
 	public int getNroContrato() {
@@ -88,14 +117,7 @@ public class Contrato {
 		ListInmuebles = listInmuebles;
 	}
 
-	public Cliente getCliente() {
-		return Cliente;
-	}
 
-	public void setCliente(Cliente cli) {
-		Cliente = cli;
-	}
-	
 	public String toStringTipoCliente() {
 		if (TipoContrato.Compra.getIndex() == this.getTipo()) {
 			return TipoContrato.Compra.name();
@@ -111,5 +133,5 @@ public class Contrato {
 			return "SI";
 		}
 		return "NO";
-	}
+	}//fin
 }
