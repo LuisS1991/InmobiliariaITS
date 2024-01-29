@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
-
+import controlador.Aplicacion;
 import java.awt.event.*;
 import java.awt.Toolkit;
 
@@ -19,7 +19,7 @@ public class PreLoad extends JFrame {
 	private Timer timer;
 	private int progreso;
 	private JProgressBar barra;
-	private inicio login;
+	private Aplicacion login;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -61,7 +61,7 @@ public class PreLoad extends JFrame {
 		contentPane.add(barra);
 		
 		// carga de tus componentes para demoren en cargar que cargen y al mostrarlos ya estan disponibles
-		CargaComponentes();		
+			
 		
 		timer = new Timer(100, new ActionListener() {
 			@Override
@@ -73,7 +73,7 @@ public class PreLoad extends JFrame {
 					timer.stop(); // Detiene el temporizador cuando el progreso llega al 100%
 					
 					// Aquí puedes iniciar tu aplicación principal o realizar otras acciones
-					login.setVisible(true);
+					CargaComponentes();	
 					cerraVentana();
 				}
 			}
@@ -86,8 +86,7 @@ public class PreLoad extends JFrame {
 
 	// Método para  carga de componentes
 	private void CargaComponentes() {
-		mismetodos.verificarConexionBD();
-		login = new inicio();
+		login = new Aplicacion();
 	}
 
 	private void cerraVentana() {
