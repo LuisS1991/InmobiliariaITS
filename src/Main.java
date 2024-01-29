@@ -9,7 +9,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Aplicacion();
+					new PreLoad();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
